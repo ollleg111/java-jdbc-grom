@@ -1,3 +1,5 @@
+package lesson1;
+
 import java.sql.*;
 
 public class JDBCFirstStep {
@@ -21,16 +23,17 @@ public class JDBCFirstStep {
 
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM TEST")) {
                 while (resultSet.next()) {
-//                    int id = resultSet.getInt("ID");
-//                    String one = resultSet.getString("ONE");
-//                    String two = resultSet.getString("TWO");
-//                    String three = resultSet.getString("THREE");
-//
-//                    System.out.print("ID: " + id);
-//                    System.out.print(", ONE: " + one);
-//                    System.out.print(", TWO: " + two);
-//                    System.out.print(", THREE: " + three);
-                    System.out.print("Object found");
+                    int id = resultSet.getInt("ID");
+                    String one = resultSet.getString("ONE");
+                    String two = resultSet.getString("TWO");
+                    String three = resultSet.getString("THREE");
+
+                    System.out.println("id:    " + id);
+                    System.out.println("one:   " + one);
+                    System.out.println("two:   " + two);
+                    System.out.println("three: " + three);
+                    System.out.println();
+//                    System.out.println("Object found");
                 }
             }
         } catch (SQLException e) {
