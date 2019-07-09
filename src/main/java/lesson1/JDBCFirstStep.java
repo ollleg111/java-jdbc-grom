@@ -23,21 +23,27 @@ public class JDBCFirstStep {
 
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM TEST")) {
                 while (resultSet.next()) {
-                    int id = resultSet.getInt("ID");
-                    String one = resultSet.getString("ONE");
-                    String two = resultSet.getString("TWO");
-                    String three = resultSet.getString("THREE");
+//                    int id = resultSet.getInt("ID");
+//                    String one = resultSet.getString("ONE");
+//                    String two = resultSet.getString("TWO");
+//                    String three = resultSet.getString("THREE");
+//
+//                    System.out.println("id:    " + id);
+//                    System.out.println("one:   " + one);
+//                    System.out.println("two:   " + two);
+//                    System.out.println("three: " + three);
+//                    System.out.println();
 
-                    System.out.println("id:    " + id);
-                    System.out.println("one:   " + one);
-                    System.out.println("two:   " + two);
-                    System.out.println("three: " + three);
-                    System.out.println();
 //                    System.out.println("Object found");
+
+
+                    System.out.println(resultSet.getInt(1));
+                    System.out.println(resultSet.getString(2));
+
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Something went wrong");
+            System.err.println("Something went wrong");
             e.printStackTrace();
         }
     }
