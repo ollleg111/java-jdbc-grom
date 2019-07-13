@@ -5,7 +5,12 @@ public class Demo {
         ProductDAO productDAO = new ProductDAO();
 
         System.out.println(productDAO.findProductsByPrice(200, 100));
-        System.out.println(productDAO.findProductsByName("test"));
         System.out.println(productDAO.findProductsWithEmptyDescription());
+        try {
+            System.out.println(productDAO.findProductsByName("test"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

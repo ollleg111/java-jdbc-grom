@@ -57,15 +57,16 @@ public class ProductDAO {
         return null;
     }
 
-    public List<Product> findProductsByName(String word) {
+    public List<Product> findProductsByName(String word) throws Exception{
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_FIND_BY_NAME)) {
             //SELECT * FROM PRODUCT WHERE NAME LIKE '%test%';
 
+            validate(word);
+
             preparedStatement.setString(1, "%" + word + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
-
 
             ArrayList<Product> products = new ArrayList<>();
             while (resultSet.next()) {
@@ -85,10 +86,24 @@ public class ProductDAO {
         return null;
     }
 
+    private void validate(String word) throws Exception {
+        /*Если word является некоректным (больше одного слова в стринге, длина меньше 3, содержит спецсимволы),
+         выбрасывать ошибку, которая в описании обязательно должна содержать само слово и описание ошибки
+         */
+        if (word.length() < 3) throw new Exception("word`s length " + word + " is less than three symbols");
+
+        for(Character ch: word.toCharArray()){
+            if(!Character.isLetterOrDigit(ch)){
+                throw new Exception("word "+ word + "is consist special symbols");
+            }
+        }
+    }
+
     public List<Product> findProductsWithEmptyDescription() {
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
+            //SELECT * FROM PRODUCT WHERE DESCRIPTION IS NULL;
 
             ResultSet resultSet = statement.executeQuery(SQL_REQUEST_FIND_WITH_EMPTY_DESCRIPTION);
             ArrayList<Product> products = new ArrayList<>();
