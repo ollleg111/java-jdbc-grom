@@ -59,7 +59,7 @@ public class ProductDAO {
                 Product product = new Product(
                         resultSet.getLong(1),
                         resultSet.getString(2),
-                        resultSet.getNString(3),
+                        resultSet.getString(3),
                         resultSet.getInt(4));
                 products.add(product);
             }
