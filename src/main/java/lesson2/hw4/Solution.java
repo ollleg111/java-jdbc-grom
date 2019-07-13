@@ -51,7 +51,8 @@ public class Solution {
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
              Statement statement = connection.createStatement()) {
 
-            int response = statement.executeUpdate("DELETE FROM PRODUCT WHERE ID = (SELECT ID FROM PRODUCT ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY) AND LENGTH(DESCRIPTION) > 100");
+//            int response = statement.executeUpdate("DELETE FROM PRODUCT WHERE ID = (SELECT ID FROM PRODUCT ORDER BY ID DESC FETCH FIRST 1 ROWS ONLY) AND LENGTH(DESCRIPTION) > 100");
+            int response = statement.executeUpdate("UPDATE PRODUCT SET DESCRIPTION = null WHERE LENGTH(DESCRIPTION) > 100");
             System.out.println(response);
             //TODO -хз- вроде все верноЁ но не проходит
 
