@@ -11,10 +11,10 @@ public class Solution {
     private static final String PASS = "q2301299266";
 
     private static final String SQL_REQUEST_SAVE_PERFORMANCE = "INSERT INTO TEST_SPEED VALUES(?, ?, ?)";
-    private static final String SQL_REQUEST_DELETE_BY_ID_PERFORMANCE = "";
-    private static final String SQL_REQUEST_DELETE_PERFORMANCE = "";
-    private static final String SQL_REQUEST_SELECT_BY_ID_PERFORMANCE = "";
-    private static final String SQL_REQUEST_SELECT_PERFORMANCE = "";
+    private static final String SQL_REQUEST_DELETE_BY_ID_PERFORMANCE = "DELETE FROM TEST_SPEED WHERE ID = ?";
+    private static final String SQL_REQUEST_DELETE_PERFORMANCE = "DELETE FROM TEST_SPEED;";
+    private static final String SQL_REQUEST_SELECT_BY_ID_PERFORMANCE = "SELECT * FROM TEST_SPEED WHERE ID = ?";
+    private static final String SQL_REQUEST_SELECT_PERFORMANCE = "SELECT * FROM TEST_SPEED";
 
     static {
         try {
@@ -39,7 +39,7 @@ public class Solution {
             ArrayList<TestSpeed> arr = new ArrayList<>();
 
             for (int i = 1; i <= 1000; i++) {
-                arr.add(new TestSpeed(i, (" some text with number " + String.valueOf(i)), (int)(Math.random() * 100)));
+                arr.add(new TestSpeed(i, (" some text with number " + String.valueOf(i)), (int) (Math.random() * 1000)));
             }
             long startTime = System.currentTimeMillis();
 
@@ -48,10 +48,8 @@ public class Solution {
                 preparedStatement.setString(2, testSpeed.getSomeString());
                 preparedStatement.setInt(3, testSpeed.getSomeNumber());
 
-                int result = preparedStatement.executeUpdate();
-                System.out.println("save was finished with result " + result);
+                preparedStatement.executeUpdate();
             }
-
             long finishTime = System.currentTimeMillis();
             System.out.println(finishTime - startTime);
 
@@ -66,24 +64,43 @@ public class Solution {
       запросами по полю ID
     */
     public void testDeleteByIdPerformance() {
-        long startTime = System.currentTimeMillis();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_DELETE_BY_ID_PERFORMANCE)) {
 
+            long startTime = System.currentTimeMillis();
 
-        long finishTime = System.currentTimeMillis();
+            for (int i = 1; i <= 1000; i++) {
+                preparedStatement.setLong(1, i);
 
-        System.out.println(finishTime - startTime);
+                preparedStatement.executeUpdate();
+            }
+            long finishTime = System.currentTimeMillis();
+            System.out.println(finishTime - startTime);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong");
+            e.printStackTrace();
+        }
     }
 
     /*
       testDeletePerformance - будет удалять 1000, одним SQL запросом()
     */
     public void testDeletePerformance() {
-        long startTime = System.currentTimeMillis();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_DELETE_PERFORMANCE)) {
 
+            long startTime = System.currentTimeMillis();
 
-        long finishTime = System.currentTimeMillis();
+            preparedStatement.executeUpdate();
 
-        System.out.println(finishTime - startTime);
+            long finishTime = System.currentTimeMillis();
+            System.out.println(finishTime - startTime);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong");
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -91,23 +108,42 @@ public class Solution {
        отдельными запросами по полю ID
     */
     public void testSelectByIdPerformance() {
-        long startTime = System.currentTimeMillis();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_SELECT_BY_ID_PERFORMANCE)) {
 
+            long startTime = System.currentTimeMillis();
 
-        long finishTime = System.currentTimeMillis();
+            for (int i = 1; i <= 1000; i++) {
+                preparedStatement.setLong(1, i);
 
-        System.out.println(finishTime - startTime);
+                preparedStatement.executeUpdate();
+            }
+            long finishTime = System.currentTimeMillis();
+            System.out.println(finishTime - startTime);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong");
+            e.printStackTrace();
+        }
     }
 
     /*
       testSelectPerformance() - будет выбирать 1000 записей, одним SQL запросом
     */
     public void testSelectPerformance() {
-        long startTime = System.currentTimeMillis();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_SELECT_PERFORMANCE)) {
 
+            long startTime = System.currentTimeMillis();
 
-        long finishTime = System.currentTimeMillis();
+            preparedStatement.executeUpdate();
 
-        System.out.println(finishTime - startTime);
+            long finishTime = System.currentTimeMillis();
+            System.out.println(finishTime - startTime);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong");
+            e.printStackTrace();
+        }
     }
 }

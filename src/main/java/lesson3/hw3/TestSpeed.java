@@ -29,18 +29,6 @@ public class TestSpeed {
         return someNumber;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setSomeString(String someString) {
-        this.someString = someString;
-    }
-
-    public void setSomeNumber(int someNumber) {
-        this.someNumber = someNumber;
-    }
-
     @Override
     public String toString() {
         return "TestSpeed{" +
