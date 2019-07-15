@@ -101,7 +101,6 @@ public class ProductDAO {
 
             int result = preparedStatement.executeUpdate();
 
-
             if (result == 0) throw new Exception("Product with id: " + product.getId() + " not found");
 
             System.out.println("update was finished with result" + result);
