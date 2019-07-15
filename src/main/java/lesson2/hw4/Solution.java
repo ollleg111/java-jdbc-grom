@@ -1,7 +1,5 @@
 package lesson2.hw4;
 
-import lesson2.Product;
-
 import java.sql.*;
 import java.util.ArrayList;
 
