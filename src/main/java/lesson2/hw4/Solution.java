@@ -71,8 +71,7 @@ public class Solution {
 
                 product.setDescription(withOutLastString.toString());
             }
-        }
-        if (productsWithNeedDescription != null) {
+
             for (Product product : productsWithNeedDescription) {
                 updateData(product);
             }
