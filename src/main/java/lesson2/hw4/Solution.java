@@ -37,7 +37,11 @@ public class Solution {
         Solution solution = new Solution();
 
         solution.increasePrice();
-        solution.changeDescription();
+        try{
+            solution.changeDescription();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void increasePrice() {
@@ -53,7 +57,7 @@ public class Solution {
         }
     }
 
-    public void changeDescription() {
+    public void changeDescription() throws Exception{
         ArrayList<Product> productsWithNeedDescription = selectData();
 
         if (productsWithNeedDescription != null) {
@@ -78,7 +82,7 @@ public class Solution {
         }
     }
 
-    private ArrayList<Product> selectData() {
+    private ArrayList<Product> selectData() throws Exception{
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
 
@@ -98,7 +102,7 @@ public class Solution {
             System.err.println("Something went wrong");
             e.printStackTrace();
         }
-        return null;
+        throw new Exception("method selectData() returned null");
     }
 
     private Product updateData(Product product) {
