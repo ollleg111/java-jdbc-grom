@@ -48,7 +48,7 @@ public class ProductDAO {
     }
 
 
-    public List<Product> getProducts() {
+    public List<Product> getProducts() throws Exception {
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
@@ -69,7 +69,7 @@ public class ProductDAO {
             System.err.println("Something went wrong");
             e.printStackTrace();
         }
-        return null;
+        throw new Exception("method getProducts() returned null");
     }
 
     public void delete(long id) throws Exception {

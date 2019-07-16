@@ -28,7 +28,7 @@ public class ProductDAO {
         return DriverManager.getConnection(DB_URL, USER, PASS);
     }
 
-    public List<Product> findProductsByPrice(int price, int delta) {
+    public List<Product> findProductsByPrice(int price, int delta) throws Exception{
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_FIND_BY_PRICE)) {
@@ -54,7 +54,7 @@ public class ProductDAO {
             System.err.println("Something went wrong");
             e.printStackTrace();
         }
-        return null;
+        throw new Exception("method findProductsByPrice(int price, int delta) returned null");
     }
 
     public List<Product> findProductsByName(String word) throws Exception{
@@ -83,7 +83,7 @@ public class ProductDAO {
             System.err.println("Something went wrong");
             e.printStackTrace();
         }
-        return null;
+        throw new Exception("method findProductsByName(String word) returned null");
     }
 
     private void validate(String word) throws Exception {
@@ -99,7 +99,7 @@ public class ProductDAO {
         }
     }
 
-    public List<Product> findProductsWithEmptyDescription() {
+    public List<Product> findProductsWithEmptyDescription() throws Exception{
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
@@ -121,6 +121,6 @@ public class ProductDAO {
             System.err.println("Something went wrong");
             e.printStackTrace();
         }
-        return null;
+        throw new Exception("method findProductsByName(String word) returned null");
     }
 }

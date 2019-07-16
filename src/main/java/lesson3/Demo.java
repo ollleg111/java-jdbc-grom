@@ -5,7 +5,12 @@ public class Demo {
         ProductDAO productDAO = new ProductDAO();
         Product product = new Product(10, "test", "test description", 99);
         //productDAO.save(product);
-        System.out.println(productDAO.getProducts());
+
+        try{
+            System.out.println(productDAO.getProducts());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
         try {
             productDAO.delete(1001);
