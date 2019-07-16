@@ -37,9 +37,9 @@ public class Solution {
         Solution solution = new Solution();
 
         solution.increasePrice();
-        try{
+        try {
             solution.changeDescription();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -57,7 +57,7 @@ public class Solution {
         }
     }
 
-    public void changeDescription() throws Exception{
+    public void changeDescription() throws Exception {
         ArrayList<Product> productsWithNeedDescription = selectData();
 
         if (productsWithNeedDescription != null) {
@@ -82,7 +82,7 @@ public class Solution {
         }
     }
 
-    private ArrayList<Product> selectData() throws Exception{
+    private ArrayList<Product> selectData() throws Exception {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
 
