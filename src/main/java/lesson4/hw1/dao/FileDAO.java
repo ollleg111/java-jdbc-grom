@@ -180,7 +180,7 @@ public class FileDAO {
     }
 
     public List<File> putAll(Storage storage, List<File> list) throws Exception {
-
+//TODO
         return null;
     }
 
@@ -192,7 +192,7 @@ public class FileDAO {
 
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-
+//TODO
     }
 
     public void transferFile(Storage storageTo, long id) throws Exception {
