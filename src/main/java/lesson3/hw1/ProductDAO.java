@@ -28,7 +28,7 @@ public class ProductDAO {
         return DriverManager.getConnection(DB_URL, USER, PASS);
     }
 
-    public List<Product> findProductsByPrice(int price, int delta) throws Exception{
+    public List<Product> findProductsByPrice(int price, int delta) throws Exception {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_FIND_BY_PRICE)) {
@@ -57,7 +57,7 @@ public class ProductDAO {
         throw new Exception("method findProductsByPrice(int price, int delta) returned null");
     }
 
-    public List<Product> findProductsByName(String word) throws Exception{
+    public List<Product> findProductsByName(String word) throws Exception {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_FIND_BY_NAME)) {
@@ -92,14 +92,14 @@ public class ProductDAO {
          */
         if (word.length() < 3) throw new Exception("word`s length " + word + " is less than three symbols");
 
-        for(Character ch: word.toCharArray()){
-            if(!Character.isLetterOrDigit(ch)){
-                throw new Exception("word "+ word + "is consist special symbols");
+        for (Character ch : word.toCharArray()) {
+            if (!Character.isLetterOrDigit(ch)) {
+                throw new Exception("word " + word + "is consist special symbols");
             }
         }
     }
 
-    public List<Product> findProductsWithEmptyDescription() throws Exception{
+    public List<Product> findProductsWithEmptyDescription() throws Exception {
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
