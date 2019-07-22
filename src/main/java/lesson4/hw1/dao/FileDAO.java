@@ -184,12 +184,10 @@ public class FileDAO {
         return null;
     }
 
-    public void delete(Storage storage, File file) throws Exception {
+    public void delete(File file) throws Exception {
         file.setStorage(null);
         update(file);
     }
-
-
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
 //TODO

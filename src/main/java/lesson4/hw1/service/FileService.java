@@ -53,7 +53,7 @@ public class FileService {
 
         if (storage != null && file != null) {
             checkFileInStorage(storage, file);
-            fileDAO.delete(storage, file);
+            fileDAO.delete(file);
         }
         throw new Exception("Storage or File not found");
     }
