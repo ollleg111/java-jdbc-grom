@@ -40,7 +40,7 @@ public class FileDAO {
         CONSTRAINT STORAGE_FK FOREIGN KEY (STORAGE_ID) REFERENCES STORAGE(STORAGE_ID)
     */
 
-    public File save(File file) throws Exception {
+    public File save(File file) {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -50,7 +50,6 @@ public class FileDAO {
             preparedStatement.setString(3, file.getFormat());
             preparedStatement.setLong(4, file.getSize());
 
-            //Файл может храниться в системе, но быть без хранилища.
             preparedStatement.setObject(5, null);
 
             int result = preparedStatement.executeUpdate();
@@ -174,29 +173,86 @@ public class FileDAO {
                 " returned null");
     }
 
+    /*
+    1
+    */
     public File put(Storage storage, File file) throws Exception {
         file.setStorage(storage);
         return update(file);
     }
 
-    public List<File> putAll(Storage storage, List<File> list) throws Exception {
-//TODO
-        return null;
+    /*
+    2
+    */
+    public List<File> putAll(Storage storage, List<File> files) throws Exception {
+        try (Connection connection = getConnection()) {
+            saveList(files, storage.getId(), connection);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong in method transferAll in class: " + FileDAO.class.getName());
+            e.printStackTrace();
+        }
+        return getFilesByStorageId(storage.getId());
     }
 
+    /*
+    3
+    */
     public void delete(File file) throws Exception {
         file.setStorage(null);
         update(file);
     }
 
-    public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-//TODO
+    /*
+    4
+    */
+    public void transferAll(List<File> files, long id) {
+        try (Connection connection = getConnection()) {
+            saveList(files, id, connection);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong in method transferAll in class: " + FileDAO.class.getName());
+            e.printStackTrace();
+        }
     }
 
+    /*
+    5
+    */
     public void transferFile(Storage storageTo, long id) throws Exception {
         FileDAO fileDAO = new FileDAO();
         File file = fileDAO.findById(id);
         file.setStorage(storageTo);
         fileDAO.update(file);
+    }
+
+    private static void saveList(List<File> files, long id, Connection connection) throws SQLException {
+
+        long fileId = 0;
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(Constants.SQL_REQUEST_FILE_UPDATE)) {
+
+            connection.setAutoCommit(false);
+
+            for (File file : files) {
+
+                fileId = file.getId();
+
+                preparedStatement.setString(1, file.getName());
+                preparedStatement.setString(2, file.getName());
+                preparedStatement.setLong(3, file.getSize());
+                preparedStatement.setLong(4, id);
+                preparedStatement.setLong(5, file.getId());
+
+                int result = preparedStatement.executeUpdate();
+                System.out.println("save was finished with result " + result);
+            }
+            connection.commit();
+
+        } catch (SQLException e) {
+            connection.rollback();
+            throw new SQLException("File with id: " + fileId + " was not transfer in method saveList in class: " +
+                    FileDAO.class.getName());
+        }
     }
 }

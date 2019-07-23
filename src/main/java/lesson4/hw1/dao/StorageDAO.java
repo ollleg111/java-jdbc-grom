@@ -2,7 +2,6 @@ package lesson4.hw1.dao;
 
 import lesson4.hw1.constants.Constants;
 import lesson4.hw1.exception.BadRequestException;
-import lesson4.hw1.model.File;
 import lesson4.hw1.model.Storage;
 
 import java.sql.*;
@@ -34,7 +33,7 @@ public class StorageDAO {
         STORAGE_MAX_SIZE NUMBER NOT NULL
     */
 
-    public Storage save(Storage storage) throws Exception {
+    public Storage save(Storage storage) {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
