@@ -12,7 +12,7 @@ public class FileService {
     /*
     CRUD
      */
-    public File save(File file) throws Exception {
+    public File save(File file) {
         return fileDAO.save(file);
     }
 
@@ -36,30 +36,43 @@ public class FileService {
         if (storage != null && file != null) {
 
             checkFormat(storage, file);
-            if (!checkFreeSpace(storage, file)) throw new Exception("For file: " + file.getId() +
-                    " do not have needed space in storage: " + storage.getId());
+            checkFreeSpace(storage, file);
+
             return fileDAO.put(storage, file);
         }
-        throw new Exception("Storage or File not found");
+        throw new Exception("Storage or File is null in method put in class: " + FileService.class.getName());
     }
 
     public List<File> putAll(Storage storage, List<File> list) throws Exception {
 
+        if (storage != null && list != null) {
+            long size = 0;
+            for(File file: list){
+                size += file.getSize();
+            }
 
-        return fileDAO.putAll(storage, list);
+            if (storage.getStorageMaxSize() < size)
+                throw new Exception("Storage: " + storage.getId() + " is lower than list. Transfer is impossible");
+
+            return fileDAO.putAll(storage, list);
+        }
+        throw new Exception("storage or list is null in method putAll in class: " +
+                FileService.class.getName());
     }
 
     public void delete(Storage storage, File file) throws Exception {
 
         if (storage != null && file != null) {
             checkFileInStorage(storage, file);
+
             fileDAO.delete(file);
         }
-        throw new Exception("Storage or File not found");
+        throw new Exception("Storage or File is null in method putAll in class: " + FileService.class.getName());
     }
 
     /*
-    Файл может храниться в системе, но быть без хранилища. При этом у файла не может быть больше 1 хранилища одновременно
+    Файл может храниться в системе, но быть без хранилища.
+    При этом у файла не может быть больше 1 хранилища одновременно
     Storage может хранить файлы только поддерживаемого формата
     Учитывайте макс размер хранилища
     В одном хранилище не могут хранится файлы с одинаковым айди, но могут хранится файлы с одинаковыми именами
@@ -70,11 +83,12 @@ public class FileService {
         if (storageFrom != null && storageTo != null) {
             if (storageFrom.getStorageMaxSize() > storageFrom.getStorageMaxSize())
                 throw new Exception("Storage: " + storageFrom.getId() + " is bigger than storage: " +
-                        +storageTo.getId() + ". Transfer is impossible");
+                        + storageTo.getId() + ". Transfer is impossible");
 
-            fileDAO.transferAll(storageFrom, storageTo);
+            fileDAO.transferAll(fileDAO.getFilesByStorageId(storageFrom.getId()),storageTo.getId());
         }
-        throw new Exception("StorageFrom or StorageTo not found");
+        throw new Exception("StorageFrom or StorageTo is null in method transferAll in class: " +
+                FileService.class.getName());
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
@@ -88,7 +102,8 @@ public class FileService {
 
             fileDAO.transferFile(storageTo, id);
         }
-        throw new Exception("StorageFrom or StorageTo or File not found");
+        throw new Exception("StorageFrom or StorageTo or File is null in method transferFile in class: "
+                + FileService.class.getName());
     }
 
     private void checkFileInStorage(Storage storage, File file) throws Exception {
@@ -100,19 +115,21 @@ public class FileService {
 
     private void checkFormat(Storage storage, File file) throws Exception {
         if (!storage.isSupportedFormat(file.getFormat())) {
-            throw new Exception("File with id: " + file.getId() + " does not put in storage: " + storage.getId());
+            throw new Exception("File with id: " + file.getId() + " does not put in storage: " + storage.getId() +
+                    " Format not supported");
         }
     }
 
-    private boolean checkFreeSpace(Storage storage, File file) throws Exception {
+    private void checkFreeSpace(Storage storage, File file) throws Exception {
+        if (!checkBooleanFreeSpace(storage, file)) throw new Exception("Do not have space for file: " +
+                file.getId() + " in storage: " + storage.getId());
+    }
+
+    private boolean checkBooleanFreeSpace(Storage storage, File file) throws Exception {
         long size = 0;
         for (File f : fileDAO.getFilesByStorageId(storage.getId())) {
             size += f.getSize();
         }
-
-        if ((size + file.getSize()) <= storage.getStorageMaxSize()) {
-            return true;
-        }
-        return false;
+        return (size + file.getSize()) <= storage.getStorageMaxSize();
     }
 }

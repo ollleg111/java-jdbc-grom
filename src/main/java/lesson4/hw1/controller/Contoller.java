@@ -14,7 +14,7 @@ public class Contoller {
     /*
     for FileDAO
     */
-    public File save(File file) throws Exception {
+    public File save(File file) {
         return fileService.save(file);
     }
 
@@ -53,7 +53,7 @@ public class Contoller {
     /*
     for StorageDAO
     */
-    public Storage save(Storage storage) throws Exception {
+    public Storage save(Storage storage) {
         return storageService.save(storage);
     }
 
