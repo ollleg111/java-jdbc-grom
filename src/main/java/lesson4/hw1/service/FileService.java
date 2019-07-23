@@ -46,12 +46,12 @@ public class FileService {
     public List<File> putAll(Storage storage, List<File> list) throws Exception {
 
         if (storage != null && list != null) {
-            long size = 0;
-            for(File file: list){
-                size += file.getSize();
+            long listSize = 0;
+            for (File file : list) {
+                listSize += file.getSize();
             }
 
-            if (storage.getStorageMaxSize() < size)
+            if ((storage.getStorageMaxSize() - requestAmount(storage)) < listSize)
                 throw new Exception("Storage: " + storage.getId() + " is lower than list. Transfer is impossible");
 
             return fileDAO.putAll(storage, list);
@@ -83,9 +83,9 @@ public class FileService {
         if (storageFrom != null && storageTo != null) {
             if (storageFrom.getStorageMaxSize() > storageFrom.getStorageMaxSize())
                 throw new Exception("Storage: " + storageFrom.getId() + " is bigger than storage: " +
-                        + storageTo.getId() + ". Transfer is impossible");
+                        +storageTo.getId() + ". Transfer is impossible");
 
-            fileDAO.transferAll(fileDAO.getFilesByStorageId(storageFrom.getId()),storageTo.getId());
+            fileDAO.transferAll(fileDAO.getFilesByStorageId(storageFrom.getId()), storageTo.getId());
         }
         throw new Exception("StorageFrom or StorageTo is null in method transferAll in class: " +
                 FileService.class.getName());
@@ -121,15 +121,20 @@ public class FileService {
     }
 
     private void checkFreeSpace(Storage storage, File file) throws Exception {
-        if (!checkBooleanFreeSpace(storage, file)) throw new Exception("Do not have space for file: " +
+        if (!checkSpace(storage, file)) throw new Exception("Do not have space for file: " +
                 file.getId() + " in storage: " + storage.getId());
     }
 
-    private boolean checkBooleanFreeSpace(Storage storage, File file) throws Exception {
+    private boolean checkSpace(Storage storage, File file) throws Exception {
+
+        return (requestAmount(storage) + file.getSize()) <= storage.getStorageMaxSize();
+    }
+
+    private long requestAmount(Storage storage) throws Exception {
         long size = 0;
         for (File f : fileDAO.getFilesByStorageId(storage.getId())) {
             size += f.getSize();
         }
-        return (size + file.getSize()) <= storage.getStorageMaxSize();
+        return size;
     }
 }
