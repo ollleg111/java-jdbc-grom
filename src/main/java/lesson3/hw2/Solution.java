@@ -1,10 +1,6 @@
 package lesson3.hw2;
 
-import lesson3.hw1.Product;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Solution {
 

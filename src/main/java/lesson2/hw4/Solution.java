@@ -80,14 +80,16 @@ public class Solution {
                 updateData(product);
             }
         }
+        throw new Exception("method selectData() returned null");
     }
 
-    private ArrayList<Product> selectData() throws Exception {
+    private ArrayList<Product> selectData() {
+        ArrayList<Product> products = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(SQL_REQUEST_SELECT_DESCRIPTION);
-            ArrayList<Product> products = new ArrayList<>();
+
             while (resultSet.next()) {
                 Product product = new Product(
                         resultSet.getLong(1),
@@ -96,13 +98,11 @@ public class Solution {
                         resultSet.getInt(4));
                 products.add(product);
             }
-            return products;
-
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
         }
-        throw new Exception("method selectData() returned null");
+        return products;
     }
 
     private Product updateData(Product product) {
