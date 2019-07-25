@@ -113,13 +113,13 @@ public class Solution {
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
-            throw new Exception("Something went wrong in method selectData(). Not all items from " +
+            throw new Exception("Something went wrong in method selectData(). Not all items " +
                     "DESCRIPTION writes on the list. The list is not complete");
         }
         return products;
     }
 
-    private Product updateData(Product product) {
+    private Product updateData(Product product) throws Exception{
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_REQUEST_UPDATE_DESCRIPTION)) {
             preparedStatement.setString(1, product.getDescription());
@@ -130,6 +130,8 @@ public class Solution {
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
+            throw new Exception("Something went wrong in method updateData(Product product). Not all items " +
+                    "updated. The list is not complete");
         }
         return product;
     }
