@@ -61,25 +61,35 @@ public class Solution {
     public void changeDescription() throws Exception {
         ArrayList<Product> productsWithNeedDescription = selectData();
 
-        if (productsWithNeedDescription != null) {
-            for (Product product : productsWithNeedDescription) {
-                ArrayList<String> withOutLastString = new ArrayList<>();
+//            for (Product product : productsWithNeedDescription) {
+//                ArrayList<String> withOutLastString = new ArrayList<>();
+//
+//                String str = product.getDescription();
+//                String[] sentences = str.split("\\.");
+//
+//                Collections.addAll(withOutLastString, sentences);
+//                if (withOutLastString.size() > 0)
+//                    withOutLastString.remove(withOutLastString.size() - 1);
+//
+//                product.setDescription(withOutLastString.toString());
+//            }
+//
+//            for (Product product : productsWithNeedDescription) {
+//                updateData(product);
+//            }
 
-                String str = product.getDescription();
-                String[] sentences = str.split("\\.");
-
-                Collections.addAll(withOutLastString, sentences);
-                if (withOutLastString.size() > 0)
-                    withOutLastString.remove(withOutLastString.size() - 1);
-
-                product.setDescription(withOutLastString.toString());
-            }
-
-            for (Product product : productsWithNeedDescription) {
-                updateData(product);
-            }
+        for (Product product : productsWithNeedDescription) {
+            String[] sentences = product.getDescription().split("\\.");
+            String[] sentencesCut = partArray(sentences, sentences.length - 1);
+            product.setDescription(String.join("", sentencesCut));
+            updateData(product);
         }
+    }
 
+    private String[] partArray(String[] array, int size) {
+        String[] part = new String[size];
+        System.arraycopy(array, 0, part, 0, size);
+        return part;
     }
 
     private ArrayList<Product> selectData() throws Exception {
