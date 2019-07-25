@@ -61,22 +61,25 @@ public class Solution {
     public void changeDescription() throws Exception {
         ArrayList<Product> productsWithNeedDescription = selectData();
 
-//            for (Product product : productsWithNeedDescription) {
-//                ArrayList<String> withOutLastString = new ArrayList<>();
-//
-//                String str = product.getDescription();
-//                String[] sentences = str.split("\\.");
-//
-//                Collections.addAll(withOutLastString, sentences);
-//                if (withOutLastString.size() > 0)
-//                    withOutLastString.remove(withOutLastString.size() - 1);
-//
-//                product.setDescription(withOutLastString.toString());
-//            }
-//
-//            for (Product product : productsWithNeedDescription) {
-//                updateData(product);
-//            }
+        /*
+        for (Product product : productsWithNeedDescription) {
+                ArrayList<String> withOutLastString = new ArrayList<>();
+
+                String str = product.getDescription();
+                String[] sentences = str.split("\\.");
+
+                Collections.addAll(withOutLastString, sentences);
+                if (withOutLastString.size() > 0)
+                    withOutLastString.remove(withOutLastString.size() - 1);
+
+                product.setDescription(withOutLastString.toString());
+            }
+
+            for (Product product : productsWithNeedDescription) {
+                updateData(product);
+            }
+         */
+
 
         for (Product product : productsWithNeedDescription) {
             String[] sentences = product.getDescription().split("\\.");
@@ -110,7 +113,8 @@ public class Solution {
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
-            throw new Exception("not all items from DESCRIPTION writes on the list");
+            throw new Exception("Something went wrong in method selectData(). Not all items from " +
+                    "DESCRIPTION writes on the list. The list is not complete");
         }
         return products;
     }
