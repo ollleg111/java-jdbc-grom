@@ -2,6 +2,7 @@ package lesson2.hw4;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Solution {
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
@@ -67,9 +68,7 @@ public class Solution {
                 String str = product.getDescription();
                 String[] sentences = str.split("\\.");
 
-                for (int i = 0; i < sentences.length; i++) {
-                    withOutLastString.add(sentences[i]);
-                }
+                Collections.addAll(withOutLastString, sentences);
                 if (withOutLastString.size() > 0)
                     withOutLastString.remove(withOutLastString.size() - 1);
 
@@ -80,10 +79,10 @@ public class Solution {
                 updateData(product);
             }
         }
-        throw new Exception("method selectData() returned null");
+
     }
 
-    private ArrayList<Product> selectData() {
+    private ArrayList<Product> selectData() throws Exception {
         ArrayList<Product> products = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement()) {
@@ -101,6 +100,7 @@ public class Solution {
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
+            throw new Exception("not all items from DESCRIPTION are on the list");
         }
         return products;
     }
