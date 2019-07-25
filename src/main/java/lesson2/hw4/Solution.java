@@ -100,7 +100,7 @@ public class Solution {
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
-            throw new Exception("not all items from DESCRIPTION are on the list");
+            throw new Exception("not all items from DESCRIPTION writes on the list");
         }
         return products;
     }
