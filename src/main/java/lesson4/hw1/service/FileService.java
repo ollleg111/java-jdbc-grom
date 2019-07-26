@@ -1,6 +1,7 @@
 package lesson4.hw1.service;
 
 import lesson4.hw1.dao.FileDAO;
+import lesson4.hw1.exception.BadRequestException;
 import lesson4.hw1.model.File;
 import lesson4.hw1.model.Storage;
 
@@ -12,7 +13,7 @@ public class FileService {
     /*
     CRUD
      */
-    public File save(File file) {
+    public File save(File file) throws Exception {
         return fileDAO.save(file);
     }
 
@@ -87,7 +88,7 @@ public class FileService {
 
             fileDAO.transferAll(fileDAO.getFilesByStorageId(storageFrom.getId()), storageTo.getId());
         }
-        throw new Exception("StorageFrom or StorageTo is null in method transferAll in class: " +
+        throw new BadRequestException("StorageFrom or StorageTo is null in method transferAll in class: " +
                 FileService.class.getName());
     }
 
@@ -102,7 +103,7 @@ public class FileService {
 
             fileDAO.transferFile(storageTo, id);
         }
-        throw new Exception("StorageFrom or StorageTo or File is null in method transferFile in class: "
+        throw new BadRequestException("StorageFrom or StorageTo or File is null in method transferFile in class: "
                 + FileService.class.getName());
     }
 

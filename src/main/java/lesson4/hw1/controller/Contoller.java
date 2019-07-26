@@ -14,7 +14,7 @@ public class Contoller {
     /*
     for FileDAO
     */
-    public File save(File file) {
+    public File save(File file) throws Exception {
         return fileService.save(file);
     }
 
@@ -46,14 +46,14 @@ public class Contoller {
         fileService.transferAll(storageFrom, storageTo);
     }
 
-    public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
+    public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
         fileService.transferFile(storageFrom, storageTo, id);
     }
 
     /*
     for StorageDAO
     */
-    public Storage save(Storage storage) {
+    public Storage save(Storage storage) throws Exception {
         return storageService.save(storage);
     }
 

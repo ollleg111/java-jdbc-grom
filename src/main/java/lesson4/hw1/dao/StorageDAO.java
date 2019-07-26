@@ -33,7 +33,10 @@ public class StorageDAO {
         STORAGE_MAX_SIZE NUMBER NOT NULL
     */
 
-    public Storage save(Storage storage) {
+    public Storage save(Storage storage) throws Exception{
+
+        if (storage == null) throw new BadRequestException("Incoming storage in method save(Storage storage)" +
+                " from class: " + StorageDAO.class.getName() + " is null");
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -56,6 +59,9 @@ public class StorageDAO {
 
     public void delete(long id) throws Exception {
 
+        if (id == 0) throw new BadRequestException("Incoming id: " + id + " in method delete(long id) " +
+                "from class: " + StorageDAO.class.getName() + " is null");
+
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
                      connection.prepareStatement(Constants.SQL_REQUEST_STORAGE_DELETE)) {
@@ -76,6 +82,9 @@ public class StorageDAO {
     }
 
     public Storage update(Storage storage) throws Exception {
+
+        if (storage == null) throw new BadRequestException("Incoming storage in method update(Storage storage)" +
+                " from class: " + StorageDAO.class.getName() + " is null");
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -102,6 +111,10 @@ public class StorageDAO {
     }
 
     public Storage findById(long id) throws Exception {
+
+        if (id == 0) throw new BadRequestException("Incoming id: " + id + " in method findById(long id) " +
+                "from class: " + StorageDAO.class.getName() + " is null");
+
         Storage storage = null;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -128,7 +141,7 @@ public class StorageDAO {
                     " in method findById");
             e.printStackTrace();
         }
-        throw new BadRequestException("method findById(long id) from class: "
+        throw new Exception("method findById(long id) from class: "
                 + StorageDAO.class.getName() + " returned null");
     }
 }
