@@ -35,20 +35,12 @@ public class FileService {
     other methods
      */
     public File put(Storage storage, File file) throws Exception {
-
-        if (storage != null && file != null) {
-
             checkFormat(storage, file);
             checkFreeSpace(storage, file);
-
             return fileDAO.put(storage, file);
-        }
-        throw new Exception("Storage or File is null in method put in class: " + FileService.class.getName());
     }
 
     public List<File> putAll(Storage storage, List<File> list) throws Exception {
-
-        if (storage != null && list != null) {
             long listSize = 0;
             for (File file : list) {
                 listSize += file.getSize();
@@ -56,21 +48,12 @@ public class FileService {
 
             if ((storage.getStorageMaxSize() - requestAmount(storage)) < listSize)
                 throw new Exception("Storage: " + storage.getId() + " is lower than list. Transfer is impossible");
-
             return fileDAO.putAll(storage, list);
-        }
-        throw new Exception("storage or list is null in method putAll in class: " +
-                FileService.class.getName());
     }
 
     public void delete(Storage storage, File file) throws Exception {
-
-        if (storage != null && file != null) {
             checkFileInStorage(storage, file);
-
             fileDAO.delete(file);
-        }
-        throw new Exception("Storage or File is null in method putAll in class: " + FileService.class.getName());
     }
 
     /*
@@ -82,21 +65,14 @@ public class FileService {
     */
 
     public void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-
-        if (storageFrom != null && storageTo != null) {
             if (storageFrom.getStorageMaxSize() > storageFrom.getStorageMaxSize())
                 throw new Exception("Storage: " + storageFrom.getId() + " is bigger than storage: " +
                         +storageTo.getId() + ". Transfer is impossible");
 
             fileDAO.transferAll(fileDAO.getFilesByStorageId(storageFrom.getId()), storageTo.getId());
-        }
-        throw new BadRequestException("StorageFrom or StorageTo is null in method transferAll in class: " +
-                FileService.class.getName());
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
-
-        if (storageFrom != null && storageTo != null && fileDAO.findById(id) != null) {
             File file = fileDAO.findById(id);
 
             checkFileInStorage(storageFrom, file);
@@ -104,13 +80,9 @@ public class FileService {
             checkFreeSpace(storageTo, file);
 
             fileDAO.transferFile(storageTo, id);
-        }
-        throw new BadRequestException("StorageFrom or StorageTo or File is null in method transferFile in class: "
-                + FileService.class.getName());
     }
 
     private void checkFileInStorage(Storage storage, File file) throws Exception {
-
         if (file.getStorage() == null || file.getStorage().getId() != storage.getId()) {
             throw new Exception("Storage: " + storage.getId() + " do not have file with id: " + file.getId());
         }
@@ -144,7 +116,8 @@ public class FileService {
     private long requestAmount(Storage storage) throws Exception {
 
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Constants.SQL_REQUEST_STORAGE_FIND_SUM)) {
+             PreparedStatement preparedStatement = connection.
+                     prepareStatement(Constants.SQL_REQUEST_STORAGE_FIND_SUM)) {
             preparedStatement.setLong(1, storage.getId());
 
             ResultSet resultSet = preparedStatement.executeQuery();
