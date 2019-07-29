@@ -40,12 +40,9 @@ public class FileDAO {
         CONSTRAINT STORAGE_FK FOREIGN KEY (STORAGE_ID) REFERENCES STORAGE(STORAGE_ID)
     */
 
-    public File save(File file) throws Exception {
+    public File save(File file){
 
-        if (file == null) throw new BadRequestException("Incoming file in method save(File file)" +
-                " from class: " + FileDAO.class.getName() + " is null");
-
-        try (Connection connection = getConnection();
+                try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
                      connection.prepareStatement(Constants.SQL_REQUEST_FILE_SAVE)) {
             preparedStatement.setLong(1, file.getId());
@@ -68,9 +65,6 @@ public class FileDAO {
 
     public void delete(long id) throws Exception {
 
-        if (id == 0) throw new BadRequestException("File with id: " + id + " in method delete(long id) " +
-                "from class: " + FileDAO.class.getName() + " not found");
-
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
                      connection.prepareStatement(Constants.SQL_REQUEST_FILE_DELETE)) {
@@ -90,9 +84,6 @@ public class FileDAO {
     }
 
     public File update(File file) throws Exception {
-
-        if (file == null) throw new BadRequestException("Incoming file in method update(File file)" +
-                " from class: " + FileDAO.class.getName() + " is null");
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -124,9 +115,6 @@ public class FileDAO {
 
     public File findById(long id) throws Exception {
 
-        if (id == 0) throw new BadRequestException("Incoming id: " + id + " in method findById(long id) " +
-                "from class: " + FileDAO.class.getName() + " is null");
-
         File file = null;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -148,7 +136,7 @@ public class FileDAO {
 
         } catch (SQLException e) {
             System.err.println("Something went wrong in class: " + FileDAO.class.getName() +
-                    " in method findById");
+                    " in method findById(long id)");
             e.printStackTrace();
         }
         throw new Exception("method findById(long id) from class: "
@@ -156,9 +144,6 @@ public class FileDAO {
     }
 
     public List<File> getFilesByStorageId(long id) throws Exception {
-
-        if (id == 0) throw new BadRequestException("Incoming id: " + id + " in method" +
-                " getFilesByStorageId(long id) from class: " + FileDAO.class.getName() + " is null");
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement =
@@ -181,7 +166,8 @@ public class FileDAO {
             return files;
 
         } catch (SQLException e) {
-            System.err.println("Something went wrong");
+            System.err.println("Something went wrong in class: " + FileDAO.class.getName() +
+                    " in method getFilesByStorageId(long id)");
             e.printStackTrace();
             throw new Exception("Something went wrong in method getFilesByStorageId(long id)." +
                     " Not all items updated. The list is not complete");

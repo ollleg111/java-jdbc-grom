@@ -10,7 +10,7 @@ public class StorageService {
     /*
     CRUD
      */
-    public Storage save(Storage storage) throws Exception {
+    public Storage save(Storage storage) {
         return storageDAO.save(storage);
     }
 

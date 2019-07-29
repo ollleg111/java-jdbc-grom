@@ -13,7 +13,7 @@ public class FileService {
     /*
     CRUD
      */
-    public File save(File file) throws Exception {
+    public File save(File file) {
         return fileDAO.save(file);
     }
 
