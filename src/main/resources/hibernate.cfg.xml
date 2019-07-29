@@ -5,11 +5,9 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.url">
-            jdbc:oracle:thin:@gromcode-lessons.chwj6uiyvsme.us-east-2.rds.amazonaws.com:1521:ORCL
-        </property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@gromcode-lessons.chwj6uiyvsme.us-east-2.rds.amazonaws.com:1521:ORCL</property>
         <property name="hibernate.connection.username">main</property>
         <property name="hibernate.connection.password">q2301299266</property>
-        <mapping class="Test"></mapping>
+        <mapping class="lesson5.Product"></mapping>
     </session-factory>
 </hibernate-configuration>
