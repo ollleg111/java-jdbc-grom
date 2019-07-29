@@ -1,10 +1,12 @@
 package lesson4.hw1.service;
 
+import lesson4.hw1.constants.Constants;
 import lesson4.hw1.dao.FileDAO;
 import lesson4.hw1.exception.BadRequestException;
 import lesson4.hw1.model.File;
 import lesson4.hw1.model.Storage;
 
+import java.sql.*;
 import java.util.List;
 
 public class FileService {
@@ -122,20 +124,39 @@ public class FileService {
     }
 
     private void checkFreeSpace(Storage storage, File file) throws Exception {
-        if (!checkSpace(storage, file)) throw new Exception("Do not have space for file: " +
+        if ((requestAmount(storage) + file.getSize()) <= storage.getStorageMaxSize())
+            throw new Exception("Do not have space for file: " +
                 file.getId() + " in storage: " + storage.getId());
     }
 
-    private boolean checkSpace(Storage storage, File file) throws Exception {
+    static {
+        try {
+            Class.forName(Constants.JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class " + Constants.JDBC_DRIVER + " not found");
+        }
+    }
 
-        return (requestAmount(storage) + file.getSize()) <= storage.getStorageMaxSize();
+    private Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(Constants.DB_URL, Constants.USER, Constants.PASS);
     }
 
     private long requestAmount(Storage storage) throws Exception {
-        long size = 0;
-        for (File f : fileDAO.getFilesByStorageId(storage.getId())) {
-            size += f.getSize();
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(Constants.SQL_REQUEST_STORAGE_FIND_SUM)) {
+            preparedStatement.setLong(1, storage.getId());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.getLong(1);
+
+        } catch (SQLException e) {
+            System.err.println("Something went wrong in class: " + FileService.class.getName() +
+                    " in method requestAmount(Storage storage)");
+            e.printStackTrace();
         }
-        return size;
+        throw new Exception("method requestAmount(Storage storage) from class: "
+                + FileService.class.getName() + " returned null");
     }
 }
