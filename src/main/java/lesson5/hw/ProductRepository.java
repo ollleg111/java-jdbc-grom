@@ -1,38 +1,35 @@
 package lesson5.hw;
-
 import org.hibernate.Session;
 
 public class ProductRepository {
 
-    private static Session getSession() {
+    public static void save(Product product) {
         Session session = new HibernateUtils().createSessionFactory().openSession();
         session.getTransaction().begin();
-        return session;
-    }
-
-    public static void save(Product product) {
-        getSession().save(product);
-        getSession().getTransaction().commit();
+        session.save(product);
+        session.getTransaction().commit();
         System.out.println("Product was saving");
 
-        getSession().close();
+        session.close();
     }
 
     public static void delete(long id) {
-//        Product product = getSession().load(Product.class, id);
-//        getSession().delete(product);
-        getSession().delete(getSession().get(Product.class, id));
-        getSession().getTransaction().commit();
+        Session session = new HibernateUtils().createSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.delete(session.get(Product.class, id));
+        session.getTransaction().commit();
         System.out.println("Product was deleting");
 
-        getSession().close();
+        session.close();
     }
 
     public static void update(Product product) {
-        getSession().update(product);
-        getSession().getTransaction().commit();
+        Session session = new HibernateUtils().createSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.update(product);
+        session.getTransaction().commit();
         System.out.println("Product was updating");
 
-        getSession().close();
+        session.close();
     }
 }
