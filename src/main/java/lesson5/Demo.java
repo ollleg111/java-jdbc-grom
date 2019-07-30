@@ -13,7 +13,7 @@ public class Demo {
         session.getTransaction().begin();
 
         Product product = new Product();
-        product.setId(100);
+        product.setId(121);
         product.setName("table");
         product.setDescription("grey and blue");
         product.setPrice(70);

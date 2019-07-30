@@ -1,4 +1,7 @@
 package lesson5.hw;
+
+import lesson5.HibernateUtils;
+import lesson5.Product;
 import org.hibernate.Session;
 
 public class ProductRepository {
