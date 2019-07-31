@@ -1,5 +1,12 @@
-package lesson2;
+package hibernate.lesson1;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PRODUCT")
 public class Product {
     /*
         ID NUMBER NOT NULL ENABLE,
@@ -7,47 +14,47 @@ public class Product {
         NAME NVARCHAR2(20) NOT NULL,
         DESCRIPTION CLOB NOT NULL,
         PRICE NUMBER NOT NULL
-     */
+    */
 
     private long id;
     private String name;
     private String description;
     private int price;
 
-    public Product(long id, String name, String description, int price) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-
+    @Id
+    @Column(name = "ID")
     public long getId() {
         return id;
     }
 
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
 
+    @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
     }
 
+    @Column(name = "PRICE")
     public int getPrice() {
         return price;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

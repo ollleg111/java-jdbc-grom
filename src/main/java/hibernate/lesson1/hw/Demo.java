@@ -1,6 +1,6 @@
-package lesson5.hw;
+package hibernate.lesson1.hw;
 
-import lesson5.Product;
+import hibernate.lesson1.Product;
 
 public class Demo {
     public static void main(String[] args) {
