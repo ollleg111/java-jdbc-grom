@@ -1,4 +1,4 @@
-package hibernate.lesson2;
+package hibernate.lesson2.hw1;
 
 import javax.persistence.*;
 
@@ -6,11 +6,8 @@ import javax.persistence.*;
 @Table(name = "PRODUCT")
 public class Product {
     /*
-        ID NUMBER NOT NULL ENABLE,
-        CONSTRAINT PRODUCT_PK PRIMARY KEY (ID),
-        NAME NVARCHAR2(20) NOT NULL,
-        DESCRIPTION CLOB NOT NULL,
-        PRICE NUMBER NOT NULL
+        CREATE SEQUENCE PRODUCT_SEQ INCREMENT BY 1 MAXVALUE 100 CYCLE;
+        DROP SEQUENCE PRODUCT_SEQ;
     */
 
     private long id;
@@ -19,7 +16,8 @@ public class Product {
     private int price;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PR_SEQ")
+    @SequenceGenerator(name = "PRD_SEQ", sequenceName = "PRODUCTS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRD_SEQ")
     @Column(name = "ID")
     public long getId() {
         return id;
@@ -54,5 +52,15 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

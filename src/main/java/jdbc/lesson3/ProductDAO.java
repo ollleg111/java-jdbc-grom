@@ -80,7 +80,7 @@ public class ProductDAO {
 
             int result = preparedStatement.executeUpdate();
 
-            if (result == 0) throw new Exception("Product with id: " + id + " not found");
+            if (result == 0) throw new Exception("ProductOne with id: " + id + " not found");
 
             System.out.println("delete was finished with result" + result);
 
@@ -101,7 +101,7 @@ public class ProductDAO {
 
             int result = preparedStatement.executeUpdate();
 
-            if (result == 0) throw new Exception("Product with id: " + product.getId() + " not found");
+            if (result == 0) throw new Exception("ProductOne with id: " + product.getId() + " not found");
 
             System.out.println("update was finished with result" + result);
 

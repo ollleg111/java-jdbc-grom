@@ -1,9 +1,6 @@
 package hibernate.lesson1;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "PRODUCT")
@@ -16,12 +13,21 @@ public class Product {
         PRICE NUMBER NOT NULL
     */
 
+    /*
+        CREATE SEQUENCE PRODUCT_SEQ MINVALUE 1 MAXVALUE 100 START WITH 1 INCREMENT BY 2;
+        or
+        CREATE SEQUENCE PRODUCT_SEQ INCREMENT BY 1 MAXVALUE 100 CYCLE;
+        DROP SEQUENCE PRODUCT_SEQ;
+    */
+
     private long id;
     private String name;
     private String description;
     private int price;
 
     @Id
+    @SequenceGenerator(name = "PRD_SEQ", sequenceName = "PRODUCTS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRD_SEQ")
     @Column(name = "ID")
     public long getId() {
         return id;

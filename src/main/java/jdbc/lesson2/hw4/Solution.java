@@ -62,7 +62,7 @@ public class Solution {
         ArrayList<Product> productsWithNeedDescription = selectData();
 
         /*
-        for (Product product : productsWithNeedDescription) {
+        for (ProductOne product : productsWithNeedDescription) {
                 ArrayList<String> withOutLastString = new ArrayList<>();
 
                 String str = product.getDescription();
@@ -75,7 +75,7 @@ public class Solution {
                 product.setDescription(withOutLastString.toString());
             }
 
-            for (Product product : productsWithNeedDescription) {
+            for (ProductOne product : productsWithNeedDescription) {
                 updateData(product);
             }
          */
@@ -130,7 +130,7 @@ public class Solution {
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
-            throw new Exception("Something went wrong in method updateData(Product product). Not all items " +
+            throw new Exception("Something went wrong in method updateData(ProductOne product). Not all items " +
                     "updated. The list is not complete");
         }
         return product;

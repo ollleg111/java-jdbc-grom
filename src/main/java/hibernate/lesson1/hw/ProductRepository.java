@@ -11,7 +11,7 @@ public class ProductRepository {
         session.getTransaction().begin();
         session.save(product);
         session.getTransaction().commit();
-        System.out.println("Product was saving");
+        System.out.println("ProductOne was saving");
 
         session.close();
     }
@@ -21,7 +21,7 @@ public class ProductRepository {
         session.getTransaction().begin();
         session.delete(session.get(Product.class, id));
         session.getTransaction().commit();
-        System.out.println("Product was deleting");
+        System.out.println("ProductOne was deleting");
 
         session.close();
     }
@@ -31,7 +31,7 @@ public class ProductRepository {
         session.getTransaction().begin();
         session.update(product);
         session.getTransaction().commit();
-        System.out.println("Product was updating");
+        System.out.println("ProductOne was updating");
 
         session.close();
     }
