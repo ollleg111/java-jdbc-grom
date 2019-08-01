@@ -13,15 +13,15 @@ public class ProductDAO {
 
     /*
     https://www.codeflow.site/ru/article/hibernate__hibernate-query-examples-hql
-     */
+    */
 
-    private static final String FIND_BY_ID = "from Product where ID = :id";
-    private static final String FIND_BY_NAME = "from Product where NAME = :name";
-    private static final String FIND_BY_CONTAINED_NAME = "from Product where NAME like :name";
-    private static final String FIND_BY_PRICE = "from Product where PRICE between :min and :max";
-    private static final String FIND_BY_NAME_SORTED_ASC = "from Product where NAME like :name order by NAME asc";
-    private static final String FIND_BY_NAME_SORTED_DESC = "from Product where NAME like :name order by NAME desc";
-    private static final String FIND_BY_PRICE_SORTED_DESC = "from Product where PRICE between :min and :max order by PRICE desc";
+    private static final String FIND_BY_ID                   = "SELECT * FROM PRODUCT WHERE ID = ?";
+    private static final String FIND_BY_NAME                 = "SELECT * FROM PRODUCT WHERE NAME = ?";
+    private static final String FIND_BY_CONTAINED_NAME       = "SELECT * FROM PRODUCT WHERE NAME LIKE ?";
+    private static final String FIND_BY_PRICE                = "SELECT * FROM PRODUCT WHERE PRICE BETWEEN ? AND ?";
+    private static final String FIND_BY_NAME_SORTED_ASC      = "SELECT * FROM PRODUCT WHERE NAME LIKE ? ORDER BY NAME ASC";
+    private static final String FIND_BY_NAME_SORTED_DESC     = "SELECT * FROM PRODUCT WHERE NAME LIKE ? ORDER BY NAME DESC";
+    private static final String FIND_BY_PRICE_SORTED_DESC    = "SELECT * FROM PRODUCT WHERE PRICE BETWEEN ? AND ? ORDER BY PRICE DESC";
 
     /*
     findById(Long id) - поиск продукта по id
@@ -29,8 +29,8 @@ public class ProductDAO {
     public static Product findById(Long id) throws Exception {
 
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_ID, Product.class);
-            query.setParameter("id", id);
+            Query<Product> query = session.createNativeQuery(FIND_BY_ID, Product.class);
+            query.setParameter(1, id);
 
             return query.getSingleResult();
 
@@ -44,8 +44,8 @@ public class ProductDAO {
     */
     public static List<Product> findByName(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_NAME, Product.class);
-            query.setParameter("name", name);
+            Query<Product> query = session.createNativeQuery(FIND_BY_NAME, Product.class);
+            query.setParameter(1, name);
 
             return query.list();
 
@@ -59,8 +59,8 @@ public class ProductDAO {
     */
     public static List<Product> findByContainedName(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_CONTAINED_NAME, Product.class);
-            query.setParameter("name", "%" + name + "%");
+            Query<Product> query = session.createNativeQuery(FIND_BY_CONTAINED_NAME, Product.class);
+            query.setParameter(1, "%" + name + "%");
 
             return query.list();
 
@@ -74,9 +74,9 @@ public class ProductDAO {
     */
     public static List<Product> findByPrice(int price, int delta) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_PRICE, Product.class);
-            query.setParameter("min", price - delta);
-            query.setParameter("max", price + delta);
+            Query<Product> query = session.createNativeQuery(FIND_BY_PRICE, Product.class);
+            query.setParameter(1, price - delta);
+            query.setParameter(2, price + delta);
 
             return query.list();
 
@@ -91,8 +91,8 @@ public class ProductDAO {
     */
     public static List<Product> findByNameSortedAsc(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_NAME_SORTED_ASC, Product.class);
-            query.setParameter("name", name);
+            Query<Product> query = session.createNativeQuery(FIND_BY_NAME_SORTED_ASC, Product.class);
+            query.setParameter(1, name);
 
             return query.list();
 
@@ -106,8 +106,8 @@ public class ProductDAO {
     */
     public static List<Product> findByNameSortedDesc(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_NAME_SORTED_DESC, Product.class);
-            query.setParameter("name", name);
+            Query<Product> query = session.createNativeQuery(FIND_BY_NAME_SORTED_DESC, Product.class);
+            query.setParameter(1, name);
 
             return query.list();
 
@@ -122,9 +122,9 @@ public class ProductDAO {
     */
     public static List<Product> findByPriceSortedDesc(int price, int delta) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery(FIND_BY_PRICE_SORTED_DESC, Product.class);
-            query.setParameter("min", price-delta);
-            query.setParameter("max", price+delta);
+            Query<Product> query = session.createNativeQuery(FIND_BY_PRICE_SORTED_DESC, Product.class);
+            query.setParameter(1, price - delta);
+            query.setParameter(2, price + delta);
 
             return query.list();
 

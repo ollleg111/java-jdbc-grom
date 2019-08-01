@@ -13,7 +13,7 @@ public class ProductDAO {
 
     /*
     https://www.codeflow.site/ru/article/hibernate__hibernate-query-examples-hql
-     */
+    */
 
     private static final String FIND_BY_ID                  = "from Product where ID = :id";
     private static final String FIND_BY_NAME                = "from Product where NAME = :name";
@@ -123,8 +123,8 @@ public class ProductDAO {
     public static List<Product> findByPriceSortedDesc(int price, int delta) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
             Query<Product> query = session.createQuery(FIND_BY_PRICE_SORTED_DESC, Product.class);
-            query.setParameter("min", price-delta);
-            query.setParameter("max", price+delta);
+            query.setParameter("min", price - delta);
+            query.setParameter("max", price + delta);
 
             return query.list();
 
