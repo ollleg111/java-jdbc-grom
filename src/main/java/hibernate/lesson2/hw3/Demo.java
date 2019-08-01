@@ -1,5 +1,8 @@
-package hibernate.lesson2.hw1;
+package hibernate.lesson2.hw3;
 
+
+import hibernate.lesson2.hw1.Product;
+import hibernate.lesson2.hw1.ProductDAO;
 
 import java.util.Arrays;
 import java.util.List;
