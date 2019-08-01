@@ -1,145 +1,136 @@
 package hibernate.lesson2.hw2;
 
-import hibernate.lesson2.hw1.Product;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
 public class ProductDAO {
-
     private static SessionFactory sessionFactory;
 
-    public static Product save(Product product) throws Exception {
-        Transaction tr = null;
+    /*
+    https://www.codeflow.site/ru/article/hibernate__hibernate-query-examples-hql
+     */
+
+    private static final String FIND_BY_ID                  = "from Product where ID = :id";
+    private static final String FIND_BY_NAME                = "from Product where NAME = :name";
+    private static final String FIND_BY_CONTAINED_NAME      = "from Product where NAME like :name";
+    private static final String FIND_BY_PRICE               = "from Product where PRICE between :min and :max";
+    private static final String FIND_BY_NAME_SORTED_ASC     = "from Product where NAME like :name order by NAME asc";
+    private static final String FIND_BY_NAME_SORTED_DESC    = "from Product where NAME like :name order by NAME desc";
+    private static final String FIND_BY_PRICE_SORTED_DESC   = "from Product where PRICE between :min and :max order by PRICE desc";
+
+    /*
+    findById(Long id) - поиск продукта по id
+    */
+    public static Product findById(Long id) throws Exception {
+
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
+            Query<Product> query = session.createQuery(FIND_BY_ID, Product.class);
+            query.setParameter("id", id);
 
-            session.save(product);
+            return query.getSingleResult();
 
-            tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
-
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("save method was failed");
+            throw new Exception("findById method was failed");
         }
-        System.out.println("Product was saving");
-        return product;
     }
 
-    public static Product update(Product product) throws Exception {
-        Transaction tr = null;
+    /*
+    findByName(String name) - поиск продуктов по имени
+    */
+    public static List<Product> findByName(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
+            Query<Product> query = session.createQuery(FIND_BY_NAME, Product.class);
+            query.setParameter("name", name);
 
-            session.update(product);
+            return query.list();
 
-            tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
-
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("update method was failed");
+            throw new Exception("findByName method was failed");
         }
-        System.out.println("Product was updated");
-        return product;
     }
 
-    public static Product delete(Product product) throws Exception {
-        Transaction tr = null;
+    /*
+    findByContainedName(String name) - поиск продуктов, которые в своем имени содержать слово name
+    */
+    public static List<Product> findByContainedName(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
+            Query<Product> query = session.createQuery(FIND_BY_CONTAINED_NAME, Product.class);
+            query.setParameter("name", "%" + name + "%");
 
-            session.delete(product);
+            return query.list();
 
-            tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
-
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("delete method was failed");
+            throw new Exception("findByContainedName method was failed");
         }
-        System.out.println("Product was deleted");
-        return product;
     }
 
-    public static void saveAll(List<Product> products) throws Exception {
-        Transaction tr = null;
+    /*
+    findByPrice(int price, int delta) - поиск продуктов по вилке цен price+-delta включительно
+    */
+    public static List<Product> findByPrice(int price, int delta) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
+            Query<Product> query = session.createQuery(FIND_BY_PRICE, Product.class);
+            query.setParameter("min", price - delta);
+            query.setParameter("max", price + delta);
 
-            for (Product product : products) {
-                save(product);
-            }
+            return query.list();
 
-            tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
-
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("saveAll method was failed");
+            throw new Exception("findByPrice method was failed");
         }
-        System.out.println("Product was saving");
     }
 
-    public static void updateAll(List<Product> products) throws Exception {
-        Transaction tr = null;
+    /*
+    findByNameSortedAsc(String name) - поиск продуктов по имени, результат отсортирован по алфавитному
+    порядку колонки name
+    */
+    public static List<Product> findByNameSortedAsc(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
+            Query<Product> query = session.createQuery(FIND_BY_NAME_SORTED_ASC, Product.class);
+            query.setParameter("name", name);
 
-            for (Product product : products) {
-                update(product);
-            }
+            return query.list();
 
-            tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
-
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("updateAll method was failed");
+            throw new Exception("findByNameSortedAsc method was failed");
         }
-        System.out.println("Product was saving");
     }
 
-    public static void deleteAll(List<Product> products) throws Exception {
-        Transaction tr = null;
+    /*
+    findByNameSortedDesc - поиск продуктов по имени, результат отсортирован начиная с конца алфавита колонки name
+    */
+    public static List<Product> findByNameSortedDesc(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
+            Query<Product> query = session.createQuery(FIND_BY_NAME_SORTED_DESC, Product.class);
+            query.setParameter("name", name);
 
-            for (Product product : products) {
-                delete(product);
-            }
+            return query.list();
 
-            tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
-
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("deleteAll method was failed");
+            throw new Exception("findByNameSortedDesc method was failed");
         }
-        System.out.println("Product was saving");
+    }
+
+    /*
+    findByPriceSortedDesc(int price, int delta) - поиск продуктов по вилке цен price+-delta включительно,
+    результат отсортирован по убыванию цен
+    */
+    public static List<Product> findByPriceSortedDesc(int price, int delta) throws Exception {
+        try (Session session = createSessionFactory().openSession()) {
+            Query<Product> query = session.createQuery(FIND_BY_PRICE_SORTED_DESC, Product.class);
+            query.setParameter("min", price-delta);
+            query.setParameter("max", price+delta);
+
+            return query.list();
+
+        } catch (HibernateException e) {
+            throw new Exception("findByPriceSortedDesc method was failed");
+        }
     }
 
     public static SessionFactory createSessionFactory() {
