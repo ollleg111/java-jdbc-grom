@@ -1,5 +1,9 @@
 package hibernate.lesson3.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "HOTEL")
 public class Hotel {
 
     private long id;
@@ -8,22 +12,30 @@ public class Hotel {
     private String city;
     private String street;
 
+    @Id
+    @SequenceGenerator(name = "HT_SEQ", sequenceName = "HOTEL_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HT_SEQ")
+    @Column(name = "HOTEL_ID")
     public long getId() {
         return id;
     }
 
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
 
+    @Column(name = "COUNTRY")
     public String getCountry() {
         return country;
     }
 
+    @Column(name = "CITY")
     public String getCity() {
         return city;
     }
 
+    @Column(name = "STREET")
     public String getStreet() {
         return street;
     }

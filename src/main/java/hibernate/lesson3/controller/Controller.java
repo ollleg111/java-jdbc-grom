@@ -1,5 +1,7 @@
 package hibernate.lesson3.controller;
 
+import hibernate.lesson3.model.Hotel;
+import hibernate.lesson3.model.Room;
 import hibernate.lesson3.services.HotelService;
 import hibernate.lesson3.services.RoomService;
 
@@ -10,26 +12,26 @@ public class Controller {
     /*
     for Hotel
     */
-    public Object saveHotel(Object object) throws Exception{
+    public Hotel saveHotel(Hotel object) throws Exception {
         return hotelService.save(object);
     }
 
-    public void deleteHotel(long id) throws Exception{
+    public void deleteHotel(long id) throws Exception {
         hotelService.delete(id);
     }
 
-    public Object updateHotel(Object object) throws Exception{
+    public Hotel updateHotel(Hotel object) throws Exception {
         return hotelService.update(object);
     }
 
-    public Object findHotelById(long id) throws Exception{
+    public Hotel findHotelById(long id) throws Exception {
         return hotelService.findById(id);
     }
 
     /*
     for Room
     */
-    public Object saveRoom(Object object) throws Exception {
+    public Room saveRoom(Room object) throws Exception {
         return roomService.save(object);
     }
 
@@ -37,11 +39,11 @@ public class Controller {
         roomService.delete(id);
     }
 
-    public Object updateRoom(Object object) throws Exception {
+    public Room updateRoom(Room object) throws Exception {
         return roomService.update(object);
     }
 
-    public Object findRoomById(long id) throws Exception {
+    public Room findRoomById(long id) throws Exception {
         return roomService.findById(id);
     }
 }

@@ -1,9 +1,15 @@
 package hibernate.lesson3.dao;
 
-public class HotelDAO<T> extends GeneralDAO {
+import hibernate.lesson3.model.Hotel;
+
+public class HotelDAO extends GeneralDAO<Hotel> {
+
+    public HotelDAO() {
+        setTypeParameterClass(Hotel.class);
+    }
 
     @Override
-    public Object save(Object object) throws Exception {
+    public Hotel save(Hotel object) throws Exception {
         return super.save(object);
     }
 
@@ -13,12 +19,12 @@ public class HotelDAO<T> extends GeneralDAO {
     }
 
     @Override
-    public Object update(Object object) throws Exception {
+    public Hotel update(Hotel object) throws Exception {
         return super.update(object);
     }
 
     @Override
-    public Object findById(long id) throws Exception {
+    public Hotel findById(long id) throws Exception {
         return super.findById(id);
     }
 }

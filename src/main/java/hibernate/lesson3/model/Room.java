@@ -1,7 +1,10 @@
 package hibernate.lesson3.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "ROOM")
 public class Room {
 
     private long id;
@@ -12,30 +15,42 @@ public class Room {
     private Date dateAvailableFrom;
     private Hotel hotel;
 
+    @Id
+    @SequenceGenerator(name = "RM_SEQ", sequenceName = "ROOM_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RM_SEQ")
+    @Column(name = "ROOM_ID")
     public long getId() {
         return id;
     }
 
+    @Column(name = "NUMBER_GUESTS")
     public int getNumberOgGuests() {
         return numberOgGuests;
     }
 
+    @Column(name = "PRICE")
     public double getPrice() {
         return price;
     }
 
+    @Column(name = "BREAKFAST")
     public int getBreakfastIncluded() {
         return breakfastIncluded;
     }
 
+    @Column(name = "PETS")
     public int getPetsAllowed() {
         return petsAllowed;
     }
 
+    @Column(name = "DATE_AVAILABLE")
     public Date getDateAvailableFrom() {
         return dateAvailableFrom;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "HOTEL")
+    @Column(name = "HOTEL_ID")
     public Hotel getHotel() {
         return hotel;
     }
@@ -53,11 +68,11 @@ public class Room {
     }
 
     public void setBreakfastIncluded(int breakfastIncluded) {
-        this.breakfastIncluded = breakfastIncluded;
+        this.breakfastIncluded = breakfastIncluded > 0 ? 1 : 0;
     }
 
     public void setPetsAllowed(int petsAllowed) {
-        this.petsAllowed = petsAllowed;
+        this.petsAllowed = petsAllowed > 0 ? 1 : 0;
     }
 
     public void setDateAvailableFrom(Date dateAvailableFrom) {

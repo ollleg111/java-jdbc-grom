@@ -1,11 +1,12 @@
 package hibernate.lesson3.services;
 
 import hibernate.lesson3.dao.HotelDAO;
+import hibernate.lesson3.model.Hotel;
 
-public class HotelService {
+public class HotelService{
     private HotelDAO hotelDAO = new HotelDAO();
 
-    public Object save(Object object) throws Exception {
+    public Hotel save(Hotel object) throws Exception {
         return hotelDAO.save(object);
     }
 
@@ -13,11 +14,11 @@ public class HotelService {
         hotelDAO.delete(id);
     }
 
-    public Object update(Object object) throws Exception {
+    public Hotel update(Hotel object) throws Exception {
         return hotelDAO.update(object);
     }
 
-    public Object findById(long id) throws Exception {
+    public Hotel findById(long id) throws Exception {
         return hotelDAO.findById(id);
     }
 }

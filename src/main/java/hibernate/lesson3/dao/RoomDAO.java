@@ -1,15 +1,21 @@
 package hibernate.lesson3.dao;
 
-public class RoomDAO extends GeneralDAO {
+import hibernate.lesson3.model.Room;
 
-    @Override
-    public Object save(Object o) throws Exception {
-        return super.save(o);
+public class RoomDAO extends GeneralDAO<Room> {
+
+    public RoomDAO() {
+        setTypeParameterClass(Room.class);
     }
 
     @Override
-    public Object update(Object o) throws Exception {
-        return super.update(o);
+    public Room save(Room object) throws Exception {
+        return super.save(object);
+    }
+
+    @Override
+    public Room update(Room object) throws Exception {
+        return super.update(object);
     }
 
     @Override
@@ -18,7 +24,7 @@ public class RoomDAO extends GeneralDAO {
     }
 
     @Override
-    public Object findById(long id) throws Exception {
+    public Room findById(long id) throws Exception {
         return super.findById(id);
     }
 }

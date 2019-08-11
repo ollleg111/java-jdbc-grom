@@ -8,7 +8,12 @@ import org.hibernate.cfg.Configuration;
 
 public class GeneralDAO<T> {
 
+    private Class<T> typeParameterClass;
     private static SessionFactory sessionFactory;
+
+    public void setTypeParameterClass(Class<T> typeParameterClass) {
+        this.typeParameterClass = typeParameterClass;
+    }
 
     public T save(T t) throws Exception {
         Transaction tr = null;
@@ -25,7 +30,7 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("save method was failed");
+            throw new Exception("save method was failed in class" + typeParameterClass.getName());
         }
         System.out.println("Product was saving");
         return t;
@@ -46,7 +51,7 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("update method was failed");
+            throw new Exception("update method was failed in class" + typeParameterClass.getName());
         }
         System.out.println("Product was updated");
         return t;
@@ -58,7 +63,8 @@ public class GeneralDAO<T> {
             tr = session.getTransaction();
             tr.begin();
 
-            session.delete(id);
+//            session.delete(id);
+            session.delete(session.get(typeParameterClass, id));
 
             tr.commit();
         } catch (HibernateException e) {
@@ -67,32 +73,21 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("delete method was failed");
+            throw new Exception("delete method was failed in class" + typeParameterClass.getName());
         }
         System.out.println("Product was deleted");
 
     }
 
     public T findById(long id) throws Exception {
-
-        Transaction tr = null;
         try (Session session = createSessionFactory().openSession()) {
-            tr = session.getTransaction();
-            tr.begin();
-            
-            session.find(t);
 
-            tr.commit();
+            return session.get(typeParameterClass, id);
+
         } catch (HibernateException e) {
-            System.err.println("find is failed");
-            System.err.println(e.getMessage());
 
-            if (tr != null)
-                tr.rollback();
-            throw new Exception("find method was failed");
+            throw new Exception("operation with id: " + id + " was filed in class " + typeParameterClass.getName());
         }
-        System.out.println("Product was find");
-        return t;
     }
 
 

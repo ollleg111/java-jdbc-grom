@@ -35,9 +35,21 @@ public class Demo {
         room2.setPrice(1200);
 
         Controller controller = new Controller();
-        controller.saveHotel(hotel1);
-        controller.saveRoom(room1);
-        controller.saveRoom(room2);
 
+        try {
+            controller.saveRoom(room2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            controller.saveHotel(hotel1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            controller.saveRoom(room1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
