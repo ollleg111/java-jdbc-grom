@@ -32,7 +32,7 @@ public class GeneralDAO<T> {
                 tr.rollback();
             throw new Exception("save method was failed in class" + typeParameterClass.getName());
         }
-        System.out.println("Product was saving");
+        System.out.println("Product " + t.getClass().getName() + " was saving");
         return t;
     }
 
@@ -53,7 +53,7 @@ public class GeneralDAO<T> {
                 tr.rollback();
             throw new Exception("update method was failed in class" + typeParameterClass.getName());
         }
-        System.out.println("Product was updated");
+        System.out.println("Product " + t.getClass().getName() + " updated");
         return t;
     }
 
@@ -75,7 +75,7 @@ public class GeneralDAO<T> {
                 tr.rollback();
             throw new Exception("delete method was failed in class" + typeParameterClass.getName());
         }
-        System.out.println("Product was deleted");
+        System.out.println("Product with id:" + id + " was deleted");
 
     }
 
