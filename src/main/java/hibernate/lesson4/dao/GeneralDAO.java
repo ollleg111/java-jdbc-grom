@@ -46,7 +46,7 @@ public class GeneralDAO<T> {
 
             tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
+            System.err.println("update is failed");
             System.err.println(e.getMessage());
 
             if (tr != null)
