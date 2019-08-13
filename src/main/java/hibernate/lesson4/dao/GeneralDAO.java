@@ -63,7 +63,6 @@ public class GeneralDAO<T> {
             tr = session.getTransaction();
             tr.begin();
 
-//            session.delete(id);
             session.delete(session.get(typeParameterClass, id));
 
             tr.commit();
@@ -81,18 +80,14 @@ public class GeneralDAO<T> {
 
     public T findById(long id) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-
             return session.get(typeParameterClass, id);
 
         } catch (HibernateException e) {
-
             throw new Exception("operation with id: " + id + " was filed in class " + typeParameterClass.getName());
         }
     }
 
-
     public static SessionFactory createSessionFactory() {
-        //singleton
         if (sessionFactory == null) {
             sessionFactory = new Configuration().configure().buildSessionFactory();
         }
