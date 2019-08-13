@@ -27,13 +27,13 @@ public class Controller {
     */
 
     /*
-    for admins
+    for users
     */
-    public Hotel findHotelByName(String name){
+    public Hotel findHotelByName(String name) throws Exception{
         return hotelService.findHotelByName(name);
     }
 
-    public Hotel findHotelByCity(String city){
+    public Hotel findHotelByCity(String city) throws Exception{
         return hotelService.findHotelByCity(city);
     }
 
@@ -45,7 +45,7 @@ public class Controller {
         roomService.bookRoom(roomId, userId, dateFrom, dateTo);
     }
 
-    public void cancelReservation(long roomId, long userId) {
+    public void cancelReservation(long roomId, long userId) throws Exception {
         roomService.cancelReservation(roomId, userId);
     }
 

@@ -1,9 +1,10 @@
 package hibernate.lesson4.services;
 
 import hibernate.lesson4.dao.HotelDAO;
+import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.model.Hotel;
 
-public class HotelService{
+public class HotelService {
     private HotelDAO hotelDAO = new HotelDAO();
 
     /*
@@ -11,11 +12,13 @@ public class HotelService{
     findHotelByCity(String city)
      */
 
-    public Hotel findHotelByName(String name){
+    public Hotel findHotelByName(String name) throws Exception {
+        validate(name);
         return hotelDAO.findHotelByName(name);
     }
 
-    public Hotel findHotelByCity(String city){
+    public Hotel findHotelByCity(String city) throws Exception {
+        validate(city);
         return hotelDAO.findHotelByName(city);
     }
 
@@ -33,5 +36,11 @@ public class HotelService{
 
     public Hotel findById(long id) throws Exception {
         return hotelDAO.findById(id);
+    }
+
+    private void validate(String str) throws Exception {
+        if (str == null)
+            throw new BadRequestException("You did not write searching field");
+        //TODO
     }
 }

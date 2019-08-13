@@ -1,6 +1,7 @@
 package hibernate.lesson4.services;
 
 import hibernate.lesson4.dao.RoomDAO;
+import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.model.Filter;
 import hibernate.lesson4.model.Room;
 
@@ -19,8 +20,11 @@ public class RoomService {
         roomDAO.bookRoom(roomId, userId, dateFrom, dateTo);
     }
 
-    public void cancelReservation(long roomId, long userId) {
-        roomDAO.cancelReservation(roomId, userId);
+    public void cancelReservation(long roomId, long userId) throws Exception {
+        if ((Long) roomId != null || ((Long) userId) != null)
+            roomDAO.cancelReservation(roomId, userId);
+        throw new BadRequestException("You did not write canceled field");
+        //TODO
     }
 
     public Room save(Room object) throws Exception {
