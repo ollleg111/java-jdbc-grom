@@ -6,8 +6,8 @@ import hibernate.lesson4.services.OrderService;
 import hibernate.lesson4.services.RoomService;
 import hibernate.lesson4.services.UserService;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Controller {
     private HotelService hotelService = new HotelService();
@@ -29,24 +29,26 @@ public class Controller {
     /*
     for users
     */
-    public Hotel findHotelByName(String name) throws Exception{
+    public Hotel findHotelByName(String name) throws Exception {
         return hotelService.findHotelByName(name);
     }
 
-    public Hotel findHotelByCity(String city) throws Exception{
+    public Hotel findHotelByCity(String city) throws Exception {
         return hotelService.findHotelByCity(city);
     }
 
-    public List findRooms(Filter filter) {
-        return roomService.findRooms(filter);
+    public ArrayList<Room> findRooms(Filter filter) {
+        if (filter != null)
+            return roomService.findRooms(filter);
+        return null;
     }
 
     public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) {
-        roomService.bookRoom(roomId, userId, dateFrom, dateTo);
+        orderService.bookRoom(roomId, userId, dateFrom, dateTo);
     }
 
     public void cancelReservation(long roomId, long userId) throws Exception {
-        roomService.cancelReservation(roomId, userId);
+        orderService.cancelReservation(roomId, userId);
     }
 
     public User registerUser(User user) {

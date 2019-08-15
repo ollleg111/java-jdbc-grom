@@ -4,18 +4,22 @@ import hibernate.lesson4.dao.UserDAO;
 import hibernate.lesson4.model.User;
 
 public class UserService {
+
     private UserDAO userDAO = new UserDAO();
 
+
     public User registerUser(User user) {
-        return userDAO.registerUser(user);
+        User user1 = new User();
+        //TODO
+        return user1;
     }
 
     public void login(String userName, String password) {
-        userDAO.login(userName, password);
+        //TODO
     }
 
     public void logout() {
-        userDAO.logout();
+        //TODO
     }
 
     public User save(User object) throws Exception {

@@ -34,7 +34,7 @@ public class Order {
         return id;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USERS_ID")
     public User getOrderUser() {
         return orderUser;

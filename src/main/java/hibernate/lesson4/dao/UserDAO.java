@@ -8,26 +8,6 @@ public class UserDAO extends GeneralDAO<User> {
         setTypeParameterClass(User.class);
     }
 
-    /*
-    registerUser(User user)
-    void login(String userName, String password)
-    void logout()
-    */
-
-    public User registerUser(User user) {
-        User user1 = new User();
-        //TODO
-        return user1;
-    }
-
-    public void login(String userName, String password) {
-        //TODO
-    }
-
-    public void logout() {
-        //TODO
-    }
-
     @Override
     public User save(User object) throws Exception {
         return super.save(object);

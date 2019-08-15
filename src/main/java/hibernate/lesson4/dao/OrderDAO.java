@@ -1,6 +1,5 @@
 package hibernate.lesson4.dao;
 
-
 import hibernate.lesson4.model.Order;
 
 public class OrderDAO extends GeneralDAO<Order> {

@@ -8,23 +8,6 @@ public class HotelDAO extends GeneralDAO<Hotel> {
         setTypeParameterClass(Hotel.class);
     }
 
-    /*
-    findHotelByName(String name)
-    findHotelByCity(String city)
-    */
-
-    public Hotel findHotelByName(String name){
-        Hotel hotel = new Hotel();
-        //TODO
-        return hotel;
-    }
-
-    public Hotel findHotelByCity(String city){
-        Hotel hotel = new Hotel();
-        //TODO
-        return hotel;
-    }
-
     @Override
     public Hotel save(Hotel object) throws Exception {
         return super.save(object);

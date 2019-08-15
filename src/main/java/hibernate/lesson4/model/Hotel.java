@@ -1,7 +1,6 @@
 package hibernate.lesson4.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,10 +53,8 @@ public class Hotel {
         return street;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROOMS_ID")
+    @OneToMany(targetEntity = Room.class,cascade = CascadeType.ALL, mappedBy = "hotel")
     public List getRooms() {
-        ArrayList<Room> rooms = new ArrayList<>();
         return rooms;
     }
 
