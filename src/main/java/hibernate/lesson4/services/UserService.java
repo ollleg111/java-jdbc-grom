@@ -1,25 +1,29 @@
 package hibernate.lesson4.services;
 
+import hibernate.lesson4.controller.Session;
 import hibernate.lesson4.dao.UserDAO;
+import hibernate.lesson4.exceptions.AuthorizedException;
+import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.model.User;
 
 public class UserService {
 
     private UserDAO userDAO = new UserDAO();
 
-
-    public User registerUser(User user) {
-        User user1 = new User();
-        //TODO
-        return user1;
+    public User registerUser(User user) throws Exception {
+        return save(user);
     }
 
-    public void login(String userName, String password) {
-        //TODO
+    public User login(String userName, String password) throws Exception {
+        if (userName != null && password != null) {
+            userDAO.findUserByNameAndPassword(userName, password);
+        }
+        throw new BadRequestException("userName or password do not enter");
     }
 
-    public void logout() {
-        //TODO
+    public void logout() throws AuthorizedException {
+        if (Session.getAuthorized() == null) throw new AuthorizedException("User is not authorized");
+        Session.setAuthorized(null);
     }
 
     public User save(User object) throws Exception {
