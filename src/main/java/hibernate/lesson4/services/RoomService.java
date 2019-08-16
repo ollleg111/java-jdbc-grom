@@ -1,20 +1,35 @@
 package hibernate.lesson4.services;
 
+import hibernate.lesson4.constants.Constants;
 import hibernate.lesson4.dao.RoomDAO;
 import hibernate.lesson4.model.Filter;
 import hibernate.lesson4.model.Room;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import static hibernate.lesson4.services.HotelService.createSessionFactory;
 
 public class RoomService {
 
     private RoomDAO roomDAO = new RoomDAO();
+//    private static SessionFactory sessionFactory;
 
+    public List<Room> findRooms(Filter filter) throws Exception {
+        try (Session session = createSessionFactory().openSession()) {
+            Query<Room> query = session.createNativeQuery(Constants.FIND_ROOMS_BY_FILTER, Room.class);
+            query.setParameter(1, filter);
 
-    public ArrayList<Room> findRooms(Filter filter) {
-        ArrayList<Room> rooms = new ArrayList<>();
-        //TODO
-        return rooms;
+            return query.list();
+
+        } catch (HibernateException e) {
+            throw new Exception("findRooms(Filter filter) method from class " +
+                    RoomService.class.getName() + " was failed");
+        }
     }
 
     public Room save(Room object) throws Exception {
@@ -32,4 +47,11 @@ public class RoomService {
     public Room findById(long id) throws Exception {
         return roomDAO.findById(id);
     }
+
+//    public static SessionFactory createSessionFactory() {
+//        if (sessionFactory == null) {
+//            sessionFactory = new Configuration().configure().buildSessionFactory();
+//        }
+//        return sessionFactory;
+//    }
 }

@@ -13,17 +13,10 @@ public class OrderController {
     private OrderService orderService = new OrderService();
 
     /*
-    findHotelByName(String name)
-    findHotelByCity(String city)
-    Collection findRooms(Filter filter)
     void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo)
     void cancelReservation(long roomId, long userId)
-    registerUser(User user)
-    void login(String userName, String password)
-    void logout()
     */
-
-    public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) {
+    public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
         orderService.bookRoom(roomId, userId, dateFrom, dateTo);
     }
 

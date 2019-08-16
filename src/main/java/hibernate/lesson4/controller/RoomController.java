@@ -1,36 +1,18 @@
 package hibernate.lesson4.controller;
 
 import hibernate.lesson4.model.*;
-import hibernate.lesson4.services.HotelService;
-import hibernate.lesson4.services.OrderService;
 import hibernate.lesson4.services.RoomService;
-import hibernate.lesson4.services.UserService;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class RoomController {
     private RoomService roomService = new RoomService();
 
     /*
-    findHotelByName(String name)
-    findHotelByCity(String city)
     Collection findRooms(Filter filter)
-    void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo)
-    void cancelReservation(long roomId, long userId)
-    registerUser(User user)
-    void login(String userName, String password)
-    void logout()
     */
-
-    /*
-    for users
-    */
-
-    public ArrayList<Room> findRooms(Filter filter) {
-        if (filter != null)
-            return roomService.findRooms(filter);
-        return null;
+    public List<Room> findRooms(Filter filter) throws Exception{
+        return roomService.findRooms(filter);
     }
 
     /*

@@ -27,10 +27,4 @@ public class UserDAO extends GeneralDAO<User> {
     public User findById(long id) throws Exception {
         return super.findById(id);
     }
-
-    public User findUserByNameAndPassword(String userName, String password) {
-        User user = new User();
-        //TODO
-        return user;
-    }
 }

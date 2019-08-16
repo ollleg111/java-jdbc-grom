@@ -8,7 +8,7 @@ import java.util.Date;
 @Table(name = "ORDER")
 public class Order {
     private long id;
-    private User orderUser;
+    private User userOrdered;
     private Room room;
     private Date dateFrom;
     private Date dateTo;
@@ -36,8 +36,8 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USERS_ID")
-    public User getOrderUser() {
-        return orderUser;
+    public User getUserOrdered() {
+        return userOrdered;
     }
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -65,8 +65,8 @@ public class Order {
         this.id = id;
     }
 
-    public void setOrderUser(User orderUser) {
-        this.orderUser = orderUser;
+    public void setUserOrdered(User userOrdered) {
+        this.userOrdered = userOrdered;
     }
 
     public void setRoom(Room room) {
@@ -89,7 +89,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", orderUser=" + orderUser +
+                ", userOrdered=" + userOrdered +
                 ", room=" + room +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +

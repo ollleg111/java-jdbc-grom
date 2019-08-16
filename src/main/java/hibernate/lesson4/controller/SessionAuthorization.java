@@ -2,7 +2,7 @@ package hibernate.lesson4.controller;
 
 import hibernate.lesson4.model.User;
 
-public class Session {
+public class SessionAuthorization {
 
     private static User authorized;
 
@@ -11,6 +11,6 @@ public class Session {
     }
 
     public static void setAuthorized(User authorized) {
-        Session.authorized = authorized;
+        SessionAuthorization.authorized = authorized;
     }
 }

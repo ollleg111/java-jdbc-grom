@@ -8,6 +8,7 @@ import hibernate.lesson4.services.UserService;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class HotelController {
     private HotelService hotelService = new HotelService();
@@ -15,22 +16,12 @@ public class HotelController {
     /*
     findHotelByName(String name)
     findHotelByCity(String city)
-    Collection findRooms(Filter filter)
-    void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo)
-    void cancelReservation(long roomId, long userId)
-    registerUser(User user)
-    void login(String userName, String password)
-    void logout()
     */
-
-    /*
-    for users
-    */
-    public Hotel findHotelByName(String name) throws Exception {
+    public List<Hotel> findHotelByName(String name) throws Exception {
         return hotelService.findHotelByName(name);
     }
 
-    public Hotel findHotelByCity(String city) throws Exception {
+    public List<Hotel> findHotelByCity(String city) throws Exception {
         return hotelService.findHotelByCity(city);
     }
 
