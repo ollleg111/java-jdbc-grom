@@ -11,12 +11,15 @@ public class RoomController {
     /*
     Collection findRooms(Filter filter)
     */
-    public List<Room> findRooms(Filter filter) throws Exception{
+    public List<Room> findRooms(Filter filter) throws Exception {
         return roomService.findRooms(filter);
     }
 
+    public Room addRoom(Room room, long hotelId) throws Exception {
+        return roomService.addRoom(room, hotelId);
+    }
+
     /*
-    for users,
     CRUD for entity - Room
     */
     public Room saveRoom(Room object) throws Exception {

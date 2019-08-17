@@ -2,12 +2,6 @@ package hibernate.lesson4.controller;
 
 import hibernate.lesson4.model.*;
 import hibernate.lesson4.services.HotelService;
-import hibernate.lesson4.services.OrderService;
-import hibernate.lesson4.services.RoomService;
-import hibernate.lesson4.services.UserService;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HotelController {
@@ -26,7 +20,6 @@ public class HotelController {
     }
 
     /*
-    for users,
     CRUD for entity - Hotel
     */
     public Hotel saveHotel(Hotel object) throws Exception {

@@ -1,6 +1,7 @@
 package hibernate.lesson4.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class Hotel {
     private String country;
     private String city;
     private String street;
-    private List rooms;
+    private List<Room> rooms;
 
     /*
     HOTEL_ID NUMBER,
@@ -53,8 +54,8 @@ public class Hotel {
         return street;
     }
 
-    @OneToMany(targetEntity = Room.class,cascade = CascadeType.ALL, mappedBy = "hotel")
-    public List getRooms() {
+    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL, mappedBy = "hotel")
+    public List<Room> getRooms() {
         return rooms;
     }
 
@@ -80,6 +81,14 @@ public class Hotel {
 
     public void setRooms(List rooms) {
         this.rooms = rooms;
+    }
+
+    public void addRoom(Room room) {
+        if (rooms != null) {
+            rooms = new ArrayList<>();
+            room.setHotel(this);
+            this.rooms.add(room);
+        }
     }
 
     @Override

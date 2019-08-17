@@ -20,19 +20,22 @@ public class UserController {
     public void login(String userName, String password) throws Exception {
         User user = userService.login(userName, password);
 
-        if(user == null) throw new UserNotFoundException("user with name: " + userName +
+        if (user == null) throw new UserNotFoundException("user with name: " + userName +
                 " does not exist in method login(String userName, String password) from class " +
                 UserController.class.getName());
 
         SessionAuthorization.setAuthorized(user);
     }
 
-    public void logout() throws Exception{
+    public void logout() throws Exception {
         userService.logout();
     }
 
+    public void removeAccount(User user) throws Exception {
+        userService.delete(user.getId());
+    }
+
     /*
-    for users,
     CRUD for entity - User
     */
     public User saveUser(User object) throws Exception {

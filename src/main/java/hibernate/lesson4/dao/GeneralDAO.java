@@ -25,14 +25,14 @@ public class GeneralDAO<T> {
 
             tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
+            System.err.println("save is failed");
             System.err.println(e.getMessage());
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("save method was failed in class" + typeParameterClass.getName());
+            throw new Exception("save(T t) method was failed in class" + typeParameterClass.getName());
         }
-        System.out.println("Product " + t.getClass().getName() + " was saving");
+        System.out.println("Entity " + t.getClass().getName() + " was saving");
         return t;
     }
 
@@ -51,9 +51,9 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("update method was failed in class" + typeParameterClass.getName());
+            throw new Exception("update(T t) method was failed in class" + typeParameterClass.getName());
         }
-        System.out.println("Product " + t.getClass().getName() + " updated");
+        System.out.println("Entity  " + t.getClass().getName() + " updated");
         return t;
     }
 
@@ -72,9 +72,9 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("delete method was failed in class" + typeParameterClass.getName());
+            throw new Exception("delete(long id) method was failed in class" + typeParameterClass.getName());
         }
-        System.out.println("Product with id:" + id + " was deleted");
+        System.out.println("Entity with id:" + id + " was deleted");
 
     }
 
@@ -83,7 +83,8 @@ public class GeneralDAO<T> {
             return session.get(typeParameterClass, id);
 
         } catch (HibernateException e) {
-            throw new Exception("operation with id: " + id + " was filed in class " + typeParameterClass.getName());
+            throw new Exception("operation with id: " + id + " was filed in method findById(long id) from class " +
+                    typeParameterClass.getName());
         }
     }
 

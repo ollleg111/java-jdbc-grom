@@ -2,15 +2,16 @@ package hibernate.lesson4.model;
 
 public class Filter {
 
-    private int numberOfGuests;
-    private double price;
-    private boolean breakfastIncluded;
-    private boolean petsAllowed;
+    private Integer numberOfGuests;
+    private Double price;
+    private Boolean breakfastIncluded;
+    private Boolean petsAllowed;
     private String country;
     private String city;
     private String hotel;
 
-    public Filter(int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, String country, String city, String hotel) {
+    public Filter(Integer numberOfGuests, Double price, Boolean breakfastIncluded, Boolean petsAllowed,
+                  String country, String city, String hotel) {
         this.numberOfGuests = numberOfGuests;
         this.price = price;
         this.breakfastIncluded = breakfastIncluded;
@@ -20,19 +21,19 @@ public class Filter {
         this.hotel = hotel;
     }
 
-    public int getNumberOfGuests() {
+    public Integer getNumberOfGuests() {
         return numberOfGuests;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public boolean isBreakfastIncluded() {
+    public Boolean getBreakfastIncluded() {
         return breakfastIncluded;
     }
 
-    public boolean isPetsAllowed() {
+    public Boolean getPetsAllowed() {
         return petsAllowed;
     }
 

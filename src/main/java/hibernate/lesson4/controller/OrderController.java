@@ -25,7 +25,6 @@ public class OrderController {
     }
 
     /*
-    for users,
     CRUD for entity - Order
     */
     public Order saveOrder(Order object) throws Exception {
