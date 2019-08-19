@@ -15,6 +15,6 @@ public class Constants {
                     "(R.PETS = :petsOne OR R.PETS = :petsTwo) AND " +
                     "R.NUMBER_GUESTS >= :numberGuests AND " +
                     "R.PRICE <= :price " +
-                    "order by R.COUNTRY asc";
+                    "ORDER BY R.COUNTRY ASC";
 
 }
