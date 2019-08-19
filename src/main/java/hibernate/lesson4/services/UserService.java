@@ -45,7 +45,7 @@ public class UserService {
     }
 
     public void delete(long id) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method delete(long id) from class " +
                     UserService.class.getName());
         userDAO.delete(id);
@@ -57,7 +57,7 @@ public class UserService {
     }
 
     public User findById(long id) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method findById(long id) from class " +
                     UserService.class.getName());
         return userDAO.findById(id);

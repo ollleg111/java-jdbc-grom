@@ -1,5 +1,6 @@
 package hibernate.lesson4.services;
 
+import hibernate.lesson4.controller.SessionAuthorization;
 import hibernate.lesson4.dao.OrderDAO;
 import hibernate.lesson4.dao.RoomDAO;
 import hibernate.lesson4.dao.UserDAO;
@@ -57,7 +58,7 @@ public class OrderService {
     }
 
     public Order findById(long id) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method findById(long id) from class " +
                     OrderService.class.getName());
         //TODO ????

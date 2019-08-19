@@ -1,8 +1,8 @@
 package hibernate.lesson4.services;
 
+import hibernate.lesson4.controller.SessionAuthorization;
 import hibernate.lesson4.dao.HotelDAO;
 import hibernate.lesson4.dao.RoomDAO;
-import hibernate.lesson4.dao.UserDAO;
 import hibernate.lesson4.exceptions.AuthorizedException;
 import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.model.Filter;
@@ -31,23 +31,15 @@ public class RoomService {
 
         validate();
 
-        if (filter.getNumberOfGuests() != null ||
-                filter.getPrice() != null ||
-                filter.getBreakfastIncluded() != null ||
-                filter.getPetsAllowed() != null ||
-                filter.getCountry() != null ||
-                filter.getCity() != null ||
-                filter.getHotel() != null) {
-
+        if (filter != null) {
             return roomDAO.findRooms(filter);
-
         }
-        throw new BadRequestException("one or more filter parameters are null in method findRooms(Filter filter) " +
+        throw new BadRequestException("filter is empty in method findRooms(Filter filter) " +
                 " from class " + RoomService.class.getName());
     }
 
     public Room addRoom(Room room, long hotelId) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method addRoom(Room room, long hotelId)" +
                     " from class " + RoomService.class.getName());
 
@@ -61,21 +53,21 @@ public class RoomService {
     }
 
     public Room save(Room object) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method save(Room object) from class "
                     + RoomService.class.getName());
         return roomDAO.save(object);
     }
 
     public void delete(long id) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method delete(long id) from class "
                     + RoomService.class.getName());
         roomDAO.delete(id);
     }
 
     public Room update(Room object) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method update(Room object) from class "
                     + RoomService.class.getName());
         return roomDAO.update(object);

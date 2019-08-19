@@ -8,17 +8,17 @@ public class Filter {
     private Boolean petsAllowed;
     private String country;
     private String city;
-    private String hotel;
+    private String hotelName;
 
     public Filter(Integer numberOfGuests, Double price, Boolean breakfastIncluded, Boolean petsAllowed,
-                  String country, String city, String hotel) {
+                  String country, String city, String hotelName) {
         this.numberOfGuests = numberOfGuests;
         this.price = price;
         this.breakfastIncluded = breakfastIncluded;
         this.petsAllowed = petsAllowed;
         this.country = country;
         this.city = city;
-        this.hotel = hotel;
+        this.hotelName = hotelName;
     }
 
     public Integer getNumberOfGuests() {
@@ -29,12 +29,20 @@ public class Filter {
         return price;
     }
 
-    public Boolean getBreakfastIncluded() {
+    public Boolean isBreakfastIncluded() {
         return breakfastIncluded;
     }
 
-    public Boolean getPetsAllowed() {
+    public int getBreakfastIncluded() {
+        return breakfastIncluded ? 1 : 0;
+    }
+
+    public Boolean isPetsAllowed() {
         return petsAllowed;
+    }
+
+    public int getPetsAllowed() {
+        return petsAllowed ? 1 : 0;
     }
 
     public String getCountry() {
@@ -45,7 +53,7 @@ public class Filter {
         return city;
     }
 
-    public String getHotel() {
-        return hotel;
+    public String getHotelName() {
+        return hotelName;
     }
 }

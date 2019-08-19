@@ -16,8 +16,10 @@ public class HotelDAO extends GeneralDAO<Hotel> {
 
     public List<Hotel> findHotelByName(String name) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Hotel> query = session.createNativeQuery(Constants.FIND_BY_CONTAINED_NAME, Hotel.class);
+            Query<Hotel> query = session.createNativeQuery(Constants.FIND_HOTEL_BY_CONTAINED_NAME, Hotel.class);
             query.setParameter(1, "%" + name + "%");
+
+            //SELECT * FROM HOTEL WHERE NAME LIKE 'A%';
 
             return query.list();
 
@@ -29,8 +31,10 @@ public class HotelDAO extends GeneralDAO<Hotel> {
 
     public List<Hotel> findHotelByCity(String city) throws Exception {
         try (Session session = createSessionFactory().openSession()) {
-            Query<Hotel> query = session.createNativeQuery(Constants.FIND_BY_CITY, Hotel.class);
+            Query<Hotel> query = session.createNativeQuery(Constants.FIND_HOTEL_BY_CITY, Hotel.class);
             query.setParameter(1, city);
+
+            //SELECT * FROM HOTEL WHERE CITY =;
 
             return query.list();
 

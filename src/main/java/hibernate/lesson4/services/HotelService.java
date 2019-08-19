@@ -1,7 +1,7 @@
 package hibernate.lesson4.services;
 
+import hibernate.lesson4.controller.SessionAuthorization;
 import hibernate.lesson4.dao.HotelDAO;
-import hibernate.lesson4.dao.UserDAO;
 import hibernate.lesson4.exceptions.AuthorizedException;
 import hibernate.lesson4.model.Hotel;
 
@@ -24,21 +24,21 @@ public class HotelService {
     }
 
     public Hotel save(Hotel object) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method save(Hotel object) from class " +
                     HotelService.class.getName());
         return hotelDAO.save(object);
     }
 
     public void delete(long id) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method delete(long id) from class " +
                     HotelService.class.getName());
         hotelDAO.delete(id);
     }
 
     public Hotel update(Hotel object) throws Exception {
-        if (!UserDAO.isAdmin())
+        if (!SessionAuthorization.isAdmin())
             throw new AuthorizedException("user do not have permission in method update(Hotel object) from class " +
                     HotelService.class.getName());
         return hotelDAO.update(object);
