@@ -24,7 +24,7 @@ public class UserDAO extends GeneralDAO<User> {
             return query.getSingleResult();
 
         } catch (HibernateException e) {
-            throw new Exception("login(String userName, String password) method was failed from class " +
+            throw new Exception("the method login(String userName, String password) was failed from class " +
                     UserDAO.class.getName());
         }
     }

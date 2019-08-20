@@ -20,7 +20,7 @@ public class UserController {
     public void login(String userName, String password) throws Exception {
         User user = userService.login(userName, password);
 
-        if (user == null) throw new UserNotFoundException("user with name: " + userName +
+        if (user == null) throw new UserNotFoundException("an user with name: " + userName +
                 " does not exist in method login(String userName, String password) from class " +
                 UserController.class.getName());
 

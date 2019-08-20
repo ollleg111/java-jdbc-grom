@@ -40,7 +40,7 @@ public class RoomService {
 
     public Room addRoom(Room room, long hotelId) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("an user have not got permission in method in method" +
+            throw new AuthorizedException("an user have not got permission in method" +
                     " addRoom(Room room, long hotelId)" +
                     " from class " + RoomService.class.getName());
 
@@ -55,7 +55,7 @@ public class RoomService {
 
     public Room save(Room object) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("an user have not got permission in method in method" +
+            throw new AuthorizedException("an user have not got permission in method" +
                     " save(Room object) from class "
                     + RoomService.class.getName());
         return roomDAO.save(object);
@@ -63,7 +63,7 @@ public class RoomService {
 
     public void delete(long id) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("an user have not got permission in method in method" +
+            throw new AuthorizedException("an user have not got permission in method" +
                     " delete(long id) from class "
                     + RoomService.class.getName());
         roomDAO.delete(id);
@@ -71,7 +71,7 @@ public class RoomService {
 
     public Room update(Room object) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("an user have not got permission in method in method" +
+            throw new AuthorizedException("an user have not got permission in method" +
                     " update(Room object) from class "
                     + RoomService.class.getName());
         return roomDAO.update(object);

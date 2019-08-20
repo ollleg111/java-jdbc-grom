@@ -8,7 +8,7 @@ public class Constants {
             " AND USER_PASS = ?";
     public static final String FIND_ORDER_BY_USER_ID        = "SELECT * FROM ORDERS WHERE USERS_ID = ?";
     public static final String FIND_ROOMS_BY_FILTER         =
-                    "FROM Room R WHERE " +
+                    "FROM Room AS R WHERE " +
                     "R.COUNTRY = :country AND " +
                     "R.HOTEL.CITY = :city AND " +
                     "R.HOTEL.NAME LIKE :name AND " +

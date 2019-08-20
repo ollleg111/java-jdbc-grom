@@ -69,7 +69,7 @@ public class OrderDAO extends GeneralDAO<Order> {
             return query.getSingleResult();
 
         } catch (HibernateException e) {
-            throw new Exception("findOrderByUserId(long userId) method was failed from class " +
+            throw new Exception("the method findOrderByUserId(long userId) was failed from class " +
                     OrderDAO.class.getName());
         }
     }

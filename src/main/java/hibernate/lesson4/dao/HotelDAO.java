@@ -24,7 +24,7 @@ public class HotelDAO extends GeneralDAO<Hotel> {
             return query.list();
 
         } catch (HibernateException e) {
-            throw new Exception("findHotelByName(String name) method  from class " +
+            throw new Exception("the method findHotelByName(String name) from class " +
                     HotelDAO.class.getName() + " was failed");
         }
     }
@@ -39,7 +39,7 @@ public class HotelDAO extends GeneralDAO<Hotel> {
             return query.list();
 
         } catch (HibernateException e) {
-            throw new Exception("findHotelByCity(String city) method from class " +
+            throw new Exception("the method findHotelByCity(String city) from class " +
                     HotelDAO.class.getName() + " was failed");
         }
     }

@@ -46,7 +46,7 @@ public class UserService {
 
     public void delete(long id) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("an user have not got permission in method in method" +
+            throw new AuthorizedException("an user have not got permission in method" +
                     " delete(long id) from class " +
                     UserService.class.getName());
         userDAO.delete(id);

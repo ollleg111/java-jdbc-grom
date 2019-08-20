@@ -30,7 +30,7 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("save(T t) method was failed in class" + typeParameterClass.getName());
+            throw new Exception("the method save(T t) was failed in class" + typeParameterClass.getName());
         }
         System.out.println("Entity " + t.getClass().getName() + " was saving");
         return t;
@@ -51,7 +51,7 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("update(T t) method was failed in class" + typeParameterClass.getName());
+            throw new Exception("the method update(T t) was failed in class" + typeParameterClass.getName());
         }
         System.out.println("Entity  " + t.getClass().getName() + " updated");
         return t;
@@ -72,7 +72,7 @@ public class GeneralDAO<T> {
 
             if (tr != null)
                 tr.rollback();
-            throw new Exception("delete(long id) method was failed in class" + typeParameterClass.getName());
+            throw new Exception("the method delete(long id) was failed in class" + typeParameterClass.getName());
         }
         System.out.println("Entity with id:" + id + " was deleted");
 

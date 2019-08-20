@@ -50,6 +50,7 @@ public class OrderService {
 
         Room room = roomDAO.findById(roomId);
         validateBooking(room, dateFrom, dateTo);
+        //TODO решил послать в валидацию два раза заглушку, только для теста комнаты на null
 
         room.setDateAvailableFrom(dateTo);
 

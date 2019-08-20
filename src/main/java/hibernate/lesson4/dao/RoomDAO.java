@@ -20,7 +20,7 @@ public class RoomDAO extends GeneralDAO<Room> {
             Query<Room> query = session.createQuery(Constants.FIND_ROOMS_BY_FILTER, Room.class);
 
             /*
-            "FROM Room R WHERE " +
+            "FROM Room AS R WHERE " +
             'R.COUNTRY = :country AND " +
             "R.HOTEL.CITY = :city AND " +
             "R.HOTEL.NAME LIKE :name AND " +
@@ -82,7 +82,7 @@ public class RoomDAO extends GeneralDAO<Room> {
             return query.list();
 
         } catch (HibernateException e) {
-            throw new Exception("findRooms(Filter filter) method from class " +
+            throw new Exception("the method findRooms(Filter filter) from class " +
                     RoomDAO.class.getName() + " was failed");
         }
     }

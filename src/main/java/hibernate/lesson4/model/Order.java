@@ -3,7 +3,6 @@ package hibernate.lesson4.model;
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Entity
 @Table(name = "ORDER")
 public class Order {

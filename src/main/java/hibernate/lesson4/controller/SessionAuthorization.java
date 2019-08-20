@@ -18,7 +18,7 @@ public class SessionAuthorization {
 
     public static void validateUser() throws Exception {
         if (SessionAuthorization.getAuthorized() == null)
-            throw new AuthorizedException("a user was not authorized ... ");
+            throw new AuthorizedException("an user was not authorized ... ");
     }
 
     public static boolean isAdmin() {
