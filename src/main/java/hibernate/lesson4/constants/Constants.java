@@ -6,6 +6,7 @@ public class Constants {
     public static final String FIND_HOTEL_BY_CITY           = "SELECT * FROM HOTEL WHERE CITY = ?";
     public static final String FIND_USER_BY_NAME_AND_PASS   = "SELECT * FROM USERS WHERE USER_NAME = ?" +
             " AND USER_PASS = ?";
+    public static final String FIND_ORDER_BY_USER_ID        = "SELECT * FROM ORDERS WHERE USERS_ID = ?";
     public static final String FIND_ROOMS_BY_FILTER         =
                     "FROM Room R WHERE " +
                     "R.COUNTRY = :country AND " +
@@ -16,5 +17,4 @@ public class Constants {
                     "R.NUMBER_GUESTS >= :numberGuests AND " +
                     "R.PRICE <= :price " +
                     "ORDER BY R.COUNTRY ASC";
-
 }

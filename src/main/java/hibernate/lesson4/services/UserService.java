@@ -7,7 +7,7 @@ import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.exceptions.UserNotFoundException;
 import hibernate.lesson4.model.User;
 
-import static hibernate.lesson4.controller.SessionAuthorization.validate;
+import static hibernate.lesson4.controller.SessionAuthorization.validateUser;
 
 public class UserService {
 
@@ -16,11 +16,11 @@ public class UserService {
     public void registerUser(User user) throws Exception {
 
         if (login(user.getUserName(), user.getPassword()) != null)
-            throw new BadRequestException("user with name " + user.getUserName() +
+            throw new BadRequestException("an user with name " + user.getUserName() +
                     " and password " + user.getPassword() + " was already registered");
 
         if (user.getOrders() != null)
-            throw new BadRequestException("user have been ordering a room. This field have to be empty");
+            throw new BadRequestException("an user have been ordering a room. This field have to be empty");
 
         userDAO.save(user);
     }
@@ -28,15 +28,15 @@ public class UserService {
     public User login(String userName, String password) throws Exception {
 
         if (userName == null || password == null) throw
-                new UserNotFoundException("userName or password do not enter in method " +
-                        "login(String userName, String password) from class " +
+                new UserNotFoundException("userName or password do not enter in method" +
+                        " login(String userName, String password) from class " +
                         UserService.class.getName());
 
         return userDAO.login(userName, password);
     }
 
     public void logout() throws Exception {
-        validate();
+        validateUser();
         SessionAuthorization.setAuthorized(null);
     }
 
@@ -46,19 +46,21 @@ public class UserService {
 
     public void delete(long id) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("user do not have permission in method delete(long id) from class " +
+            throw new AuthorizedException("an user have not got permission in method in method" +
+                    " delete(long id) from class " +
                     UserService.class.getName());
         userDAO.delete(id);
     }
 
     public User update(User object) throws Exception {
-        validate();
+        validateUser();
         return userDAO.update(object);
     }
 
     public User findById(long id) throws Exception {
         if (!SessionAuthorization.isAdmin())
-            throw new AuthorizedException("user do not have permission in method findById(long id) from class " +
+            throw new AuthorizedException("an user have not got permission in method" +
+                    " findById(long id) from class " +
                     UserService.class.getName());
         return userDAO.findById(id);
     }
