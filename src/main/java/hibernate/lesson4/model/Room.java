@@ -61,12 +61,13 @@ public class Room {
         return petsAllowed;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_AVAILABLE")
     public Date getDateAvailableFrom() {
         return dateAvailableFrom;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "HOTEL_ID")
     public Hotel getHotel() {
         return hotel;

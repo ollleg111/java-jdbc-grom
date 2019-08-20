@@ -11,7 +11,7 @@ public class GeneralDAO<T> {
     private Class<T> typeParameterClass;
     private static SessionFactory sessionFactory;
 
-    public void setTypeParameterClass(Class<T> typeParameterClass) {
+    void setTypeParameterClass(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
     }
 

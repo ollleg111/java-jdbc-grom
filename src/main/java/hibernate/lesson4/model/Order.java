@@ -37,23 +37,25 @@ public class Order {
         return id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USERS_ID")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "USERS_ID", nullable = false)
     public User getUserOrdered() {
         return userOrdered;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROOM_ID")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ROOM_ID", nullable = false)
     public Room getRoom() {
         return room;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_FROM")
     public Date getDateFrom() {
         return dateFrom;
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_TO")
     public Date getDateTo() {
         return dateTo;

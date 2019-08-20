@@ -51,12 +51,14 @@ public class User {
         return country;
     }
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "USER_TYPE")
     public UserType getUserType() {
         return userType;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, mappedBy = "userOrdered")
+//    @OneToMany(orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "userOrdered")
     @JoinColumn(name = "ORDERS_ID")
     public List getOrders() {
         return orders;
