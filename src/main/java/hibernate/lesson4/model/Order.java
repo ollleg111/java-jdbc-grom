@@ -37,13 +37,15 @@ public class Order {
         return id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "USERS_ID", nullable = false)
     public User getUserOrdered() {
         return userOrdered;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "ROOM_ID", nullable = false)
     public Room getRoom() {
         return room;
