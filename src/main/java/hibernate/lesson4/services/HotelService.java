@@ -14,12 +14,12 @@ public class HotelService {
     private HotelDAO hotelDAO = new HotelDAO();
 
     public List<Hotel> findHotelByName(String name) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return  hotelDAO.findHotelByName(name);
     }
 
     public List<Hotel> findHotelByCity(String city) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return hotelDAO.findHotelByCity(city);
     }
 
@@ -48,7 +48,7 @@ public class HotelService {
     }
 
     public Hotel findById(long id) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return hotelDAO.findById(id);
     }
 }

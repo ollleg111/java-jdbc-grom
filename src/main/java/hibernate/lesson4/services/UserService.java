@@ -7,7 +7,6 @@ import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.exceptions.UserNotFoundException;
 import hibernate.lesson4.model.User;
 
-import static hibernate.lesson4.controller.SessionAuthorization.validateUser;
 
 public class UserService {
 
@@ -36,7 +35,7 @@ public class UserService {
     }
 
     public void logout() throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         SessionAuthorization.setAuthorized(null);
     }
 
@@ -53,7 +52,7 @@ public class UserService {
     }
 
     public User update(User object) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return userDAO.update(object);
     }
 

@@ -22,17 +22,17 @@ public class OrderService {
     private UserDAO userDAO = new UserDAO();
 
     public Order save(Order object) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return orderDAO.save(object);
     }
 
     public void delete(long id) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         orderDAO.delete(id);
     }
 
     public Order update(Order object) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return orderDAO.update(object);
     }
 
@@ -46,7 +46,7 @@ public class OrderService {
 
     public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
 
-        validateUser();
+        SessionAuthorization.validateUser();
 
         Room room = roomDAO.findById(roomId);
         validateBooking(room, dateFrom, dateTo);
@@ -67,7 +67,7 @@ public class OrderService {
 
     public void cancelReservation(long roomId, long userId) throws Exception {
 
-        validateUser();
+        SessionAuthorization.validateUser();
 
         Room room = roomDAO.findById(roomId);
         validateBooking(room, new Date(), new Date());

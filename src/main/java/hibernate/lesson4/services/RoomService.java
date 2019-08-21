@@ -29,7 +29,7 @@ public class RoomService {
         private String hotel;
         */
 
-        validateUser();
+        SessionAuthorization.validateUser();
 
         if (filter != null) {
             return roomDAO.findRooms(filter);
@@ -78,7 +78,7 @@ public class RoomService {
     }
 
     public Room findById(long id) throws Exception {
-        validateUser();
+        SessionAuthorization.validateUser();
         return roomDAO.findById(id);
     }
 }

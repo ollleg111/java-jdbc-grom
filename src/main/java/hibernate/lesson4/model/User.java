@@ -58,7 +58,7 @@ public class User {
     }
 
 //        @OneToMany(orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "userOrdered")
-    @OneToMany(targetEntity = hibernate.lesson4.model.Order.class, cascade = CascadeType.ALL, mappedBy = "userOrdered")
+    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, mappedBy = "userOrdered")
     public List getOrders() {
         return orders;
     }
