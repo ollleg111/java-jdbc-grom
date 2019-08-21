@@ -1,8 +1,9 @@
 package hibernate.lesson4.demo;
 
-import hibernate.lesson3.controller.Controller;
-import hibernate.lesson3.model.Hotel;
-import hibernate.lesson3.model.Room;
+
+
+import hibernate.lesson4.model.Hotel;
+import hibernate.lesson4.model.Room;
 
 import java.util.Date;
 
@@ -31,24 +32,5 @@ public class DemoUser {
         room4.setNumberOgGuests(2);
         room4.setPrice(1200);
 
-        Controller controller = new Controller();
-
-        try {
-            controller.saveHotel(hotel1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            controller.saveRoom(room4);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            controller.saveRoom(room3);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
