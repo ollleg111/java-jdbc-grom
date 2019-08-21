@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "ORDER")
+@Table(name = "ORDERS")
 public class Order {
     private long id;
     private User userOrdered;
@@ -43,7 +43,7 @@ public class Order {
         return userOrdered;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ROOM_ID", nullable = false)
     public Room getRoom() {
         return room;
