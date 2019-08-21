@@ -7,7 +7,6 @@ import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.exceptions.UserNotFoundException;
 import hibernate.lesson4.model.User;
 
-
 public class UserService {
 
     private UserDAO userDAO = new UserDAO();

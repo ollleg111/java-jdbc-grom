@@ -7,8 +7,6 @@ import hibernate.lesson4.model.Hotel;
 
 import java.util.List;
 
-import static hibernate.lesson4.controller.SessionAuthorization.validateUser;
-
 public class HotelService {
 
     private HotelDAO hotelDAO = new HotelDAO();

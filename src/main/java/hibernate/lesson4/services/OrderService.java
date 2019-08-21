@@ -13,8 +13,6 @@ import hibernate.lesson4.model.User;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import static hibernate.lesson4.controller.SessionAuthorization.validateUser;
-
 public class OrderService {
 
     private OrderDAO orderDAO = new OrderDAO();

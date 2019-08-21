@@ -11,8 +11,6 @@ import hibernate.lesson4.model.Room;
 
 import java.util.List;
 
-import static hibernate.lesson4.controller.SessionAuthorization.validateUser;
-
 public class RoomService {
 
     private RoomDAO roomDAO = new RoomDAO();
