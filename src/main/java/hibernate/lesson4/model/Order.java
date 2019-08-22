@@ -13,6 +13,17 @@ public class Order {
     private Date dateTo;
     private double moneyPaid;
 
+    public Order() {
+    }
+
+    public Order(User userOrdered, Room room, Date dateFrom, Date dateTo, double moneyPaid) {
+        this.userOrdered = userOrdered;
+        this.room = room;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.moneyPaid = moneyPaid;
+    }
+
     /*
     CREATE TABLE ORDERS(
     ORDERS_ID NUMBER,

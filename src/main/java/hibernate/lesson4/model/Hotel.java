@@ -15,7 +15,17 @@ public class Hotel {
     private String street;
     private List<Room> rooms;
 
-    /*
+    public Hotel() {
+    }
+
+    public Hotel(String name, String country, String city, String street) {
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.street = street;
+    }
+
+/*
     CREATE TABLE HOTEL(
     HOTEL_ID NUMBER,
     CONSTRAINT HOTEL_PK PRIMARY KEY(HOTEL_ID),

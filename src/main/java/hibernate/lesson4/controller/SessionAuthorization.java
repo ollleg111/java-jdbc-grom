@@ -23,6 +23,6 @@ public class SessionAuthorization {
 
     public static boolean isAdmin() {
         return (SessionAuthorization.getAuthorized() != null &&
-                SessionAuthorization.getAuthorized().getUserType() == UserType.ADMIN);
+                SessionAuthorization.getAuthorized().getUserType() == UserType.ADMIN.toString());
     }
 }

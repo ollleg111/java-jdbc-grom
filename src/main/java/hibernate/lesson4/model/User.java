@@ -14,6 +14,16 @@ public class User {
     private UserType userType;
     private List orders;
 
+    public User() {
+    }
+
+    public User(String userName, String password, String country, UserType userType) {
+        this.userName = userName;
+        this.password = password;
+        this.country = country;
+        this.userType = userType;
+    }
+
     /*
     CREATE TABLE USERS(
     USERS_ID NUMBER,
@@ -51,13 +61,18 @@ public class User {
         return country;
     }
 
-    @Enumerated(EnumType.ORDINAL)
+    //@Enumerated(EnumType.ORDINAL)
     @Column(name = "USER_TYPE")
-    public UserType getUserType() {
+    public String getUserType() {
+        return userType.toString();
+    }
+
+    @Transient
+    public UserType getUserTypeEnum() {
         return userType;
     }
 
-//        @OneToMany(orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "userOrdered")
+    //        @OneToMany(orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "userOrdered")
     @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, mappedBy = "userOrdered")
     public List getOrders() {
         return orders;
@@ -81,6 +96,10 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = UserType.USER.valueOf(userType);
     }
 
     public void setOrders(List orders) {

@@ -15,6 +15,17 @@ public class Room {
     private Date dateAvailableFrom;
     private Hotel hotel;
 
+    public Room() {
+    }
+
+    public Room(int numberOgGuests, double price, int breakfastIncluded, int petsAllowed, Date dateAvailableFrom) {
+        this.numberOgGuests = numberOgGuests;
+        this.price = price;
+        this.breakfastIncluded = breakfastIncluded;
+        this.petsAllowed = petsAllowed;
+        this.dateAvailableFrom = dateAvailableFrom;
+    }
+
     /*
     CREATE TABLE ROOM(
     ROOM_ID NUMBER,
@@ -106,7 +117,6 @@ public class Room {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
-
 
 
     @Override
