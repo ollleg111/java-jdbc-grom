@@ -8,13 +8,13 @@ public class Constants {
             " AND USER_PASS = ?";
     public static final String FIND_ORDER_BY_USER_ID        = "SELECT * FROM ORDERS WHERE USERS_ID = ?";
     public static final String FIND_ROOMS_BY_FILTER         =
-                    "FROM Room AS R WHERE " +
-                    "R.COUNTRY = :country AND " +
-                    "R.HOTEL.CITY = :city AND " +
-                    "R.HOTEL.NAME LIKE :name AND " +
-                    "(R.BREAKFAST = :breakfastOne OR R.BREAKFAST = :breakfastTwo) AND " +
-                    "(R.PETS = :petsOne OR R.PETS = :petsTwo) AND " +
-                    "R.NUMBER_GUESTS >= :numberGuests AND " +
-                    "R.PRICE <= :price " +
-                    "ORDER BY R.COUNTRY ASC";
+                    "SELECT * FROM ROOM " +
+                            "JOIN HOTEL ON ROOM.HOTEL_ID = HOTEL.HOTEL_ID AND " +
+                            "HOTEL.COUNTRY = ? AND " +
+                            "HOTEL.CITY = ? AND " +
+                            "HOTEL.NAME LIKE 'A%' AND " +
+                            "ROOM.BREAKFAST = ? AND " +
+                            "ROOM.PETS  = ? AND " +
+                            "ROOM.NUMBER_GUESTS = ? AND " +
+                            "ROOM.PRICE = ?";
 }

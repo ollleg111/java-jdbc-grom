@@ -4,11 +4,8 @@ import hibernate.lesson4.controller.HotelController;
 import hibernate.lesson4.controller.RoomController;
 import hibernate.lesson4.controller.UserController;
 import hibernate.lesson4.model.Filter;
-import hibernate.lesson4.model.Room;
 import hibernate.lesson4.model.User;
 import hibernate.lesson4.model.UserType;
-
-import java.util.Date;
 
 public class DemoRoom {
 
@@ -25,7 +22,7 @@ public class DemoRoom {
         }
 
         RoomController roomController = new RoomController();
-        HotelController hotelController = new HotelController();
+//        HotelController hotelController = new HotelController();
 
 //        Room room1, room2, room3;
 //        try {
@@ -53,7 +50,8 @@ public class DemoRoom {
 //            e.printStackTrace();
 //        }
 
-        Filter filter = new Filter(1,100D,true,false,"UA","Dnipro","A");
+        Filter filter = new Filter("UA","Dnipro", "A%",true,
+                false,2,100.0);
         try {
             System.out.println(roomController.findRooms(filter));
         } catch (Exception e) {

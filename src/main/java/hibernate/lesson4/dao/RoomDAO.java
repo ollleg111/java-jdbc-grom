@@ -1,6 +1,7 @@
 package hibernate.lesson4.dao;
 
 import hibernate.lesson4.constants.Constants;
+import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.model.Filter;
 import hibernate.lesson4.model.Room;
 import org.hibernate.HibernateException;
@@ -16,75 +17,30 @@ public class RoomDAO extends GeneralDAO<Room> {
     }
 
     public List<Room> findRooms(Filter filter) throws Exception {
-        try (Session session = createSessionFactory().openSession()) {
-            Query<Room> query = session.createQuery(Constants.FIND_ROOMS_BY_FILTER, Room.class);
 
-            /*
-            "FROM Room AS R WHERE " +
-            'R.COUNTRY = :country AND " +
-            "R.HOTEL.CITY = :city AND " +
-            "R.HOTEL.NAME LIKE :name AND " +
-            "(R.BREAKFAST = :breakfastOne OR R.BREAKFAST = :breakfastTwo) AND " +
-            "(R.PETS = :petsOne OR R.PETS = :petsTwo) AND " +
-            "R.NUMBER_GUESTS >= :numberGuests AND " +
-            "R.PRICE <= :price " +
-            "ORDER BY R.COUNTRY ASC";
-            */
+        if (filter.getCountry() == null || filter.getCity() == null || filter.getHotelName() == null ||
+                filter.getBreakfastIncluded() == 0 || filter.getPetsAllowed() == 0 ||
+                filter.getNumberOfGuests() == 0 || filter.getPrice() == null) {
 
-            //--------strings
+            try (Session session = createSessionFactory().openSession()) {
+                Query<Room> query = session.createNativeQuery(Constants.FIND_ROOMS_BY_FILTER, Room.class);
 
-            if (filter.getCountry() != null) {
-                query.setParameter("country", "%" + filter.getCountry() + "%");
-            } else {
-                query.setParameter("country", "%%");
+                query.setParameter(1, filter.getCountry());
+                query.setParameter(2, filter.getCity());
+                query.setParameter(3, "%" + filter.getHotelName() + "%");
+                query.setParameter(4, filter.getBreakfastIncluded());
+                query.setParameter(5, filter.getPetsAllowed());
+                query.setParameter(6, filter.getNumberOfGuests());
+                query.setParameter(7, filter.getPrice());
+
+                return query.list();
+
+            } catch (HibernateException e) {
+                throw new Exception("the method findRooms(Filter filter) from class " +
+                        RoomDAO.class.getName() + " was failed");
             }
-            if (filter.getCity() != null) {
-                query.setParameter("city", "%" + filter.getCity() + "%");
-            } else {
-                query.setParameter("city", "%%");
-            }
-            if (filter.getHotelName() != null) {
-                query.setParameter("name", "%" + filter.getHotelName() + "%");
-            } else {
-                query.setParameter("name", "%%");
-            }
-
-            //--------booleans
-
-            if (filter.isBreakfastIncluded() != null) {
-                query.setParameter("breakfastOne", filter.getBreakfastIncluded());
-                query.setParameter("breakfastTwo", filter.getBreakfastIncluded());
-            } else {
-                query.setParameter("breakfastOne", 0);
-                query.setParameter("breakfastTwo", 1);
-            }
-            if (filter.isPetsAllowed() != null) {
-                query.setParameter("petsOne", filter.getPetsAllowed());
-                query.setParameter("petsTwo", filter.getPetsAllowed());
-            } else {
-                query.setParameter("petsOne", 0);
-                query.setParameter("petsTwo", 1);
-            }
-
-            //--------numbers
-
-            if (filter.getNumberOfGuests() == null) {
-                query.setParameter("numberGuests", filter.getNumberOfGuests());
-            } else {
-                query.setParameter("numberGuests", 0);
-            }
-            if (filter.getPrice() == null) {
-                query.setParameter("price", filter.getPrice());
-            } else {
-                query.setParameter("price", (double) 1000000);
-            }
-
-            return query.list();
-
-        } catch (HibernateException e) {
-            throw new Exception("the method findRooms(Filter filter) from class " +
-                    RoomDAO.class.getName() + " was failed");
         }
+        throw new BadRequestException("one or some fields in class Filter are null");
     }
 
     @Override
