@@ -8,7 +8,7 @@ import hibernate.lesson4.model.UserType;
 public class DemoHotel {
     public static void main(String[] args) {
 
-        User user = new User("IgoR", "1234", "UA", UserType.ADMIN);
+        User user = new User("Igor", "123", "UA", UserType.ADMIN);
 
         UserController userController = new UserController();
 

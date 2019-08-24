@@ -26,6 +26,16 @@ public class Room {
         this.dateAvailableFrom = dateAvailableFrom;
     }
 
+    public Room(int numberOgGuests, double price, int breakfastIncluded, int petsAllowed, Date dateAvailableFrom,
+                Hotel hotel) {
+        this.numberOgGuests = numberOgGuests;
+        this.price = price;
+        this.breakfastIncluded = breakfastIncluded;
+        this.petsAllowed = petsAllowed;
+        this.dateAvailableFrom = dateAvailableFrom;
+        this.hotel = hotel;
+    }
+
     /*
     CREATE TABLE ROOM(
     ROOM_ID NUMBER,
@@ -72,14 +82,13 @@ public class Room {
         return petsAllowed;
     }
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_AVAILABLE")
     public Date getDateAvailableFrom() {
         return dateAvailableFrom;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "HOTEL_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "HOTEL_ID", nullable = false)
     public Hotel getHotel() {
         return hotel;
     }
@@ -93,31 +102,25 @@ public class Room {
         this.numberOgGuests = numberOgGuests;
     }
 
-
     public void setPrice(double price) {
         this.price = price;
     }
-
 
     public void setBreakfastIncluded(int breakfastIncluded) {
         this.breakfastIncluded = breakfastIncluded > 0 ? 1 : 0;
     }
 
-
     public void setPetsAllowed(int petsAllowed) {
         this.petsAllowed = petsAllowed > 0 ? 1 : 0;
     }
-
 
     public void setDateAvailableFrom(Date dateAvailableFrom) {
         this.dateAvailableFrom = dateAvailableFrom;
     }
 
-
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
-
 
     @Override
     public String toString() {

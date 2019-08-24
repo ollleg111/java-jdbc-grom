@@ -8,7 +8,7 @@ public class DemoUser {
 
     public static void main(String[] args) {
 
-        User user = new User("IgoR", "1234", "UA", UserType.ADMIN);
+        User user = new User("Igor", "123", "UA", UserType.ADMIN);
 
         UserController userController = new UserController();
 
@@ -18,34 +18,28 @@ public class DemoUser {
             e.printStackTrace();
         }
 
-//        try{
-//            System.out.println(userController.findUserById(24));
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        try {
+            System.out.println(userController.findUserById(24));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-//        try{
+//        try {
 //            userController.deleteUser(29);
-//        }catch (Exception e){
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            userController.saveUser(user);
+//        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 
-//        try{
-//            System.out.println(userController.findUserById(24));
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-
-//        try{
-//            System.out.println(userController.findUserById(24));
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-
-//        try{
-//            userController.logout();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        try {
+            userController.logout();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

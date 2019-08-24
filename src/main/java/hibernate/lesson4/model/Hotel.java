@@ -24,7 +24,6 @@ public class Hotel {
         this.city = city;
         this.street = street;
     }
-
 /*
     CREATE TABLE HOTEL(
     HOTEL_ID NUMBER,
@@ -66,8 +65,7 @@ public class Hotel {
         return street;
     }
 
-    //    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL, mappedBy = "hotel")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "hotel")
+    @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL, mappedBy = "hotel")
     public List<Room> getRooms() {
         return rooms;
     }

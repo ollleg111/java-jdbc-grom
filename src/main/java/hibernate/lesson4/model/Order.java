@@ -38,7 +38,7 @@ public class Order {
     );
 
     CREATE SEQUENCE ORDERS_SEQ INCREMENT BY 1 MAXVALUE 1000 CYCLE;
-     */
+    */
 
     @Id
     @SequenceGenerator(name = "OR_SEQ", sequenceName = "ORDERS_SEQ", allocationSize = 1)
@@ -48,27 +48,23 @@ public class Order {
         return id;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "USERS_ID", nullable = false)
     public User getUserOrdered() {
         return userOrdered;
     }
 
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "ROOM_ID", nullable = false)
     public Room getRoom() {
         return room;
     }
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_FROM")
     public Date getDateFrom() {
         return dateFrom;
     }
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_TO")
     public Date getDateTo() {
         return dateTo;

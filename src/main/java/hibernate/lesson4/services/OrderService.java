@@ -48,7 +48,6 @@ public class OrderService {
 
         Room room = roomDAO.findById(roomId);
         validateBooking(room, dateFrom, dateTo);
-        //TODO решил послать в валидацию два раза заглушку, только для теста комнаты на null
 
         room.setDateAvailableFrom(dateTo);
 
@@ -68,7 +67,8 @@ public class OrderService {
         SessionAuthorization.validateUser();
 
         Room room = roomDAO.findById(roomId);
-        validateBooking(room, new Date(), new Date());
+        if (room == null)
+            throw new BadRequestException("a room with this id does not exist");
 
         Order order = orderDAO.findOrderByUserId(userId);
         //TODO один user - один заказ, если он бронирует много - то надо переделать в лист

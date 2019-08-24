@@ -61,7 +61,6 @@ public class User {
         return country;
     }
 
-    //@Enumerated(EnumType.ORDINAL)
     @Column(name = "USER_TYPE")
     public String getUserType() {
         return userType.toString();
@@ -72,8 +71,7 @@ public class User {
         return userType;
     }
 
-    //        @OneToMany(orphanRemoval = true, cascade = CascadeType.REMOVE, mappedBy = "userOrdered")
-    @OneToMany(targetEntity = Order.class, cascade = CascadeType.ALL, mappedBy = "userOrdered")
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Order.class, cascade = CascadeType.ALL, mappedBy = "userOrdered")
     public List getOrders() {
         return orders;
     }
