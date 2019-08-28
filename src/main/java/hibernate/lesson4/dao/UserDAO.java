@@ -2,7 +2,6 @@ package hibernate.lesson4.dao;
 
 import hibernate.lesson4.constants.Constants;
 import hibernate.lesson4.model.User;
-import hibernate.lesson4.model.UserType;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;

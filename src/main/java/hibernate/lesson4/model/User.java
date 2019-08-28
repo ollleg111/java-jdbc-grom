@@ -97,7 +97,7 @@ public class User {
     }
 
     public void setUserType(String userType) {
-        this.userType = UserType.USER.valueOf(userType);
+        this.userType = UserType.valueOf(userType);
     }
 
     public void setOrders(List orders) {

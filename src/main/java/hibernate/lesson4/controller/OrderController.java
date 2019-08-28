@@ -1,12 +1,8 @@
 package hibernate.lesson4.controller;
 
-import hibernate.lesson4.model.*;
-import hibernate.lesson4.services.HotelService;
+import hibernate.lesson4.model.Order;
 import hibernate.lesson4.services.OrderService;
-import hibernate.lesson4.services.RoomService;
-import hibernate.lesson4.services.UserService;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderController {
