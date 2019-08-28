@@ -21,12 +21,12 @@ public class UserDAO extends GeneralDAO<User> {
             query.setParameter(2, password);
 
             //SELECT * FROM USERS WHERE USER_NAME = ? AND USER_PASS = ?;
-
-            User result = query.getSingleResult();
-
-//            return result != null? result: new User();
-            return result != null? result: new User("ddd","www","UA",UserType.USER);
-
+            try {
+                return query.getSingleResult();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         } catch (HibernateException e) {
             throw new Exception("the method login(String userName, String password) was failed from class " +
                     UserDAO.class.getName());
