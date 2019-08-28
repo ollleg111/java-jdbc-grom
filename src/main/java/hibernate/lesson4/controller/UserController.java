@@ -1,5 +1,6 @@
 package hibernate.lesson4.controller;
 
+import hibernate.lesson4.exceptions.BadRequestException;
 import hibernate.lesson4.exceptions.UserNotFoundException;
 import hibernate.lesson4.model.*;
 import hibernate.lesson4.services.UserService;
@@ -13,8 +14,13 @@ public class UserController {
     void logout()
     */
     public void registerUser(User user) throws Exception {
-        userService.registerUser(user);
-        //TODO по сути этот метод аналогичен saveUser, поэтому сделал его void
+        if (user == null) throw new BadRequestException("user is null");
+
+        if (userService.login(user.getUserName(), user.getPassword()) != null)
+            throw new BadRequestException("an user with name: " + user.getUserName() +
+                    " and password: " + user.getPassword() + " was already registered in the method" +
+                    " registerUser(User user) from class " + UserController.class.getName());
+        saveUser(user);
     }
 
     public void login(String userName, String password) throws Exception {

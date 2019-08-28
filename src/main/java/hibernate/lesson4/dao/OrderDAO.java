@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.Date;
+import java.util.List;
 
 public class OrderDAO extends GeneralDAO<Order> {
 
@@ -58,7 +59,7 @@ public class OrderDAO extends GeneralDAO<Order> {
         }
     }
 
-    public Order findOrderByUserId(long userId) throws Exception {
+    public List<Order> findOrderByUserId(long userId) throws Exception {
 
         try (Session session = createSessionFactory().openSession()) {
             Query<Order> query = session.createNativeQuery(Constants.FIND_ORDER_BY_USER_ID, Order.class);
@@ -66,7 +67,7 @@ public class OrderDAO extends GeneralDAO<Order> {
 
             //SELECT * FROM ORDERS WHERE USERS_ID = ?;
 
-            return query.getSingleResult();
+            return query.list();
 
         } catch (HibernateException e) {
             throw new Exception("the method findOrderByUserId(long userId) was failed from class " +

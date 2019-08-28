@@ -2,6 +2,7 @@ package hibernate.lesson4.dao;
 
 import hibernate.lesson4.constants.Constants;
 import hibernate.lesson4.model.User;
+import hibernate.lesson4.model.UserType;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -21,7 +22,10 @@ public class UserDAO extends GeneralDAO<User> {
 
             //SELECT * FROM USERS WHERE USER_NAME = ? AND USER_PASS = ?;
 
-            return query.getSingleResult();
+            User result = query.getSingleResult();
+
+//            return result != null? result: new User();
+            return result != null? result: new User("ddd","www","UA",UserType.USER);
 
         } catch (HibernateException e) {
             throw new Exception("the method login(String userName, String password) was failed from class " +

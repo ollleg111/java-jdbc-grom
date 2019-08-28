@@ -19,7 +19,7 @@ public class HotelDAO extends GeneralDAO<Hotel> {
             Query<Hotel> query = session.createNativeQuery(Constants.FIND_HOTEL_BY_CONTAINED_NAME, Hotel.class);
             query.setParameter(1, "%" + name + "%");
 
-            //SELECT * FROM HOTEL WHERE NAME LIKE 'A%';
+            //SELECT * FROM HOTEL WHERE NAME LIKE ?
 
             return query.list();
 

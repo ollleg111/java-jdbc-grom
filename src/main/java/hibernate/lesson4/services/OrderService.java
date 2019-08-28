@@ -12,6 +12,7 @@ import hibernate.lesson4.model.User;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 public class OrderService {
 
@@ -70,13 +71,15 @@ public class OrderService {
         if (room == null)
             throw new BadRequestException("a room with this id does not exist");
 
-        Order order = orderDAO.findOrderByUserId(userId);
-        //TODO один user - один заказ, если он бронирует много - то надо переделать в лист
 
-        if (order == null) throw new BadRequestException("the user with this id: " + userId +
+        List<Order> orders = orderDAO.findOrderByUserId(userId);
+
+        if (orders == null) throw new BadRequestException("the user with this id: " + userId +
                 " do not have any orders");
 
-        orderDAO.cancelReservation(order, room);
+        for (Order obj : orders) {
+            orderDAO.cancelReservation(obj, room);
+        }
     }
 
     private void validateBooking(Room room, Date dateFrom, Date dateTo) throws Exception {
