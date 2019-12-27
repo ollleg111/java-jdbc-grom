@@ -87,7 +87,7 @@ public class Contoller {
         return storageService.save(storage);
     }
 
-    public void deleteStroage(long id) throws Exception {
+    public void deleteStorage(long id) throws Exception {
         storageService.delete(id);
     }
 
